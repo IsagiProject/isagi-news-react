@@ -16,7 +16,7 @@ export function App() {
         <Routes>
           <Route path='/' element={<IndexPage />} />
           <Route path='/news' element={<NewsPage />} />
-          <Route path='/news/list' element={<NewsListPage />} />
+          <Route path='/news/:category' element={<NewsListPage />} />
           <Route path='/sales' element={<SalesPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
