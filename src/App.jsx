@@ -7,6 +7,7 @@ import { NewsListPage } from './pages/NewsListPage.jsx'
 import { NewsPage } from './pages/NewsPage.jsx'
 import { RegisterPage } from './pages/RegisterPage.jsx'
 import { SalesPage } from './pages/SalesPage.jsx'
+import { SaleDetailPage } from './pages/SaleDetailPage.jsx'
 
 export function App() {
   return (
@@ -20,6 +21,7 @@ export function App() {
           <Route path='/sales' element={<SalesPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
+          <Route path='/sales/:id' element={<SaleDetailPage />} />
         </Routes>
       </div>
       <Footer />
