@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export function NewsSummary() {
+export function NewsSummary({ news }) {
   const [show, setShow] = useState(false)
 
   const handleClick = () => {
@@ -12,29 +12,30 @@ export function NewsSummary() {
       <div
         id='post'
         className={`text-gray-300 rounded-lg ${
-          show ? 'overflow-visible h-max' : 'overflow-hidden h-28'
+          show ? 'overflow-visible h-max' : 'overflow-hidden h-32'
         }`}
       >
-        <h1 className='text-4xl text-gray-300 font-bold my-3'>Noticia</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, eius!
-          Rerum, minus nostrum quisquam ipsum cumque dolorum, veritatis vero
-          maxime accusamus nihil sapiente veniam laudantium temporibus! Earum
-          pariatur eaque quae?
+        <div className='rounded-lg'>
+          <h1
+            style={{
+              opacity: 1,
+              zIndex: 2
+            }}
+            className='text-4xl max-h-20 text-grey-300  align-middle font-bold pb-11 pt-5 '
+          >
+            {news.title}
+          </h1>
+        </div>
+        <div className='flex'>
+          <p className='min-w-[70%]'>{news.text}</p>
+          <img
+            className='min-h-[30%] min-w-[30%] '
+            src={news.image}
+            alt='news.title'
+            style={{ zIndex: 0, opacity: 1 }}
+          />
           <br />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-          tempore delectus obcaecati mollitia voluptate laudantium, commodi
-          perspiciatis enim itaque accusantium, iste atque sequi vitae veniam?
-          <br /> Doloribus dolore iste modi enim. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Hic, ab soluta? Ex tempora earum eum
-          vitae praesentium beatae dicta aperiam incidunt inventore, enim ullam
-          reprehenderit unde voluptatum eligendi nisi natus? <br />
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt
-          voluptatibus laborum ducimus distinctio nesciunt molestias nam
-          corporis enim odio officia, ipsum cum adipisci. Suscipit libero qui
-          iste. Earum, nulla non.
-        </p>
-        <br />
+        </div>
       </div>
       <button
         className='mt-5 relative text-gray-300 font-bold'
