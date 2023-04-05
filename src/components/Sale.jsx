@@ -9,7 +9,7 @@ export function Sale({ sale }) {
       <div className='flex flex-col w-9/12'>
         <div className='flex flex-row justify-between'>
           <h1 className='text-2xl text-white text-center ml-6 inline font-bold'>
-            <Link to='/'>{sale.title}</Link>
+            <Link to='/sales/1'>{sale.title}</Link>
           </h1>
           <h1 className='text-lg text-white text-center inline'>
             {sale.username}

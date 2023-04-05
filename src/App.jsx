@@ -7,6 +7,7 @@ import { NewsListPage } from './pages/NewsListPage.jsx'
 import { NewsPage } from './pages/NewsPage.jsx'
 import { RegisterPage } from './pages/RegisterPage.jsx'
 import { SalesPage } from './pages/SalesPage.jsx'
+import { SaleDetailPage } from './pages/SaleDetailPage.jsx'
 import React from 'react'
 
 const LoginContext = React.createContext()
@@ -20,10 +21,11 @@ export function App() {
           <Routes>
             <Route path='/' element={<IndexPage />} />
             <Route path='/news' element={<NewsPage />} />
-            <Route path='/news/list' element={<NewsListPage />} />
+            <Route path='/news/:category' element={<NewsListPage />} />
             <Route path='/sales' element={<SalesPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegisterPage />} />
+            <Route path='/sales/:id' element={<SaleDetailPage />} />
           </Routes>
         </div>
         <Footer />
