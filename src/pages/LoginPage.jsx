@@ -1,10 +1,46 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
+import { useState /*, useContext */ } from 'react'
+// import LoginContext from '../context/LoginContext'
 
 export function LoginPage() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loginSuccessful, setLoginSuccessful] = useState(false)
+  // const value = useContext(LoginContext)
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    // Aquí puedes enviar los datos al servidor para su validación
+    fetch('https://isagiapi.galder315.ga/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Aquí puedes manejar la respuesta del servidor
+        if (data.status === 200) {
+          console.log(data)
+          window.localStorage.setItem('token', data.token)
+          setLoginSuccessful(true)
+
+          // Inicio de sesión exitoso
+        } else {
+          // Inicio de sesión fallido
+          window.alert('Usuario o contraseña incorrectos')
+          document.getElementById('email').value = ''
+          document.getElementById('password').value = ''
+        }
+      })
+  }
+
   return (
     <div className='justify-center w-6/12 m-auto'>
+      {loginSuccessful && <Navigate to='/' />}
       <form
+        onSubmit={handleSubmit}
         className='bg-gray-700 p-12 my-8 justify-center rounded-lg'
         action=''
       >
@@ -13,19 +49,21 @@ export function LoginPage() {
           Inicio Sesión
         </h1>
         <div className='justify-items-center text-center'>
-          <label for='Email' className='text-gray-400 text-xl my-1 text-right'>
+          <label htmlFor='Email' className='text-gray-400 text-xl my-1 text-right'>
             Email
           </label>
           <input
             type='email'
             name='Email'
+            value={email}
             className='my-3 p-1 rounded-lg ml-4'
             placeholder='user@gmail.com'
             id='email'
+            onChange={(event) => setEmail(event.target.value)}
           />
           <br />
           <label
-            for='Password'
+            htmlFor='Password'
             className='text-gray-400 text-xl my-1 text-right'
           >
             Clave
@@ -33,8 +71,10 @@ export function LoginPage() {
           <input
             type='password'
             name='Password'
+            value={password}
             className='my-3 p-1 rounded-lg ml-4'
             id='password'
+            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
         <br />
@@ -49,12 +89,10 @@ export function LoginPage() {
           </button>
 
           <button
-            type='button'
+            type='submit'
             className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-700 transition duration-200 mx-1 text-gray-300'
           >
-            <Link className='block w-24 h-12 pt-3 text-center ' to='/'>
-              Iniciar Sesion
-            </Link>
+            Iniciar Sesion
           </button>
         </div>
       </form>
