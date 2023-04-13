@@ -7,27 +7,22 @@ import { NewsListPage } from './pages/NewsListPage.jsx'
 import { NewsPage } from './pages/NewsPage.jsx'
 import { RegisterPage } from './pages/RegisterPage.jsx'
 import { SalesPage } from './pages/SalesPage.jsx'
-import React from 'react'
-
-const LoginContext = React.createContext()
 
 export function App() {
   return (
-    <LoginContext.Provider value='false'>
-      <div className='flex flex-col min-h-[101vh]'>
-        <Menu />
-        <div className='w-5/6 m-auto mt-2 flex-1'>
-          <Routes>
-            <Route path='/' element={<IndexPage />} />
-            <Route path='/news' element={<NewsPage />} />
-            <Route path='/news/list' element={<NewsListPage />} />
-            <Route path='/sales' element={<SalesPage />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/register' element={<RegisterPage />} />
-          </Routes>
-        </div>
-        <Footer />
+    <div className='flex flex-col min-h-[101vh]'>
+      <Menu />
+      <div className='w-5/6 m-auto mt-2 flex-1'>
+        <Routes>
+          <Route path='/' element={<IndexPage />} />
+          <Route path='/news' element={<NewsPage />} />
+          <Route path='/news/list' element={<NewsListPage />} />
+          <Route path='/sales' element={<SalesPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+        </Routes>
       </div>
-    </LoginContext.Provider>
+      <Footer />
+    </div>
   )
 }

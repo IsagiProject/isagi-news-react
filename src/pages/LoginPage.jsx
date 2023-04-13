@@ -1,13 +1,14 @@
 import { Link, Navigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
-import { useState /*, useContext */ } from 'react'
-// import LoginContext from '../context/LoginContext'
+import { useState } from 'react'
+import { useAuthActions } from '../hooks/useAuthActions.js'
 
 export function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginSuccessful, setLoginSuccessful] = useState(false)
-  // const value = useContext(LoginContext)
+  const { addToken } = useAuthActions()
+
   const handleSubmit = (event) => {
     event.preventDefault()
     // Aquí puedes enviar los datos al servidor para su validación
@@ -23,7 +24,7 @@ export function LoginPage() {
         // Aquí puedes manejar la respuesta del servidor
         if (data.status === 200) {
           console.log(data)
-          window.localStorage.setItem('token', data.token)
+          addToken(data.token)
           setLoginSuccessful(true)
 
           // Inicio de sesión exitoso
@@ -49,7 +50,10 @@ export function LoginPage() {
           Inicio Sesión
         </h1>
         <div className='justify-items-center text-center'>
-          <label htmlFor='Email' className='text-gray-400 text-xl my-1 text-right'>
+          <label
+            htmlFor='Email'
+            className='text-gray-400 text-xl my-1 text-right'
+          >
             Email
           </label>
           <input
