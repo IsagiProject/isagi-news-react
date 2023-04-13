@@ -4,13 +4,16 @@ import { useState } from 'react'
 import { useAuthActions } from '../hooks/useAuthActions.js'
 
 export function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [loginSuccessful, setLoginSuccessful] = useState(false)
   const { addToken } = useAuthActions()
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    const form = event.target
+    const formData = new FormData(form)
+    const email = formData.get('email')
+    const password = formData.get('password')
+
     // Aquí puedes enviar los datos al servidor para su validación
     fetch('https://isagiapi.galder315.ga/auth/login', {
       method: 'POST',
@@ -29,10 +32,9 @@ export function LoginPage() {
 
           // Inicio de sesión exitoso
         } else {
+          form.reset()
           // Inicio de sesión fallido
-          window.alert('Usuario o contraseña incorrectos')
-          document.getElementById('email').value = ''
-          document.getElementById('password').value = ''
+          // window.alert('Usuario o contraseña incorrectos')
         }
       })
   }
@@ -51,34 +53,30 @@ export function LoginPage() {
         </h1>
         <div className='justify-items-center text-center'>
           <label
-            htmlFor='Email'
+            htmlFor='email'
             className='text-gray-400 text-xl my-1 text-right'
           >
             Email
           </label>
           <input
             type='email'
-            name='Email'
-            value={email}
+            name='email'
             className='my-3 p-1 rounded-lg ml-4'
             placeholder='user@gmail.com'
             id='email'
-            onChange={(event) => setEmail(event.target.value)}
           />
           <br />
           <label
-            htmlFor='Password'
+            htmlFor='password'
             className='text-gray-400 text-xl my-1 text-right'
           >
             Clave
           </label>
           <input
             type='password'
-            name='Password'
-            value={password}
+            name='password'
             className='my-3 p-1 rounded-lg ml-4'
             id='password'
-            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
         <br />
