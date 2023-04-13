@@ -26,7 +26,6 @@ export function LoginPage() {
       .then((data) => {
         // Aquí puedes manejar la respuesta del servidor
         if (data.status === 200) {
-          console.log(data)
           addToken(data.token)
           setLoginSuccessful(true)
 
