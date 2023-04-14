@@ -8,17 +8,11 @@ import { NewsPage } from './pages/NewsPage.jsx'
 import { RegisterPage } from './pages/RegisterPage.jsx'
 import { SalesPage } from './pages/SalesPage.jsx'
 import { SaleDetailPage } from './pages/SaleDetailPage.jsx'
-import React, { useEffect } from 'react'
-import { initFlowbite } from 'flowbite'
-import { useAppSelector } from './hooks/store.js'
+import React from 'react'
 
 export function App() {
-  const darkMode = useAppSelector((state) => state.style.dark)
-  useEffect(() => {
-    initFlowbite()
-  }, [])
   return (
-    <div className={`flex flex-col min-h-[101vh] ${darkMode ? 'dark' : ''}`}>
+    <div className='flex flex-col min-h-[101vh]'>
       <Menu />
       <div className='w-5/6 m-auto mt-2 flex-1'>
         <Routes>
