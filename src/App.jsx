@@ -8,9 +8,13 @@ import { NewsPage } from './pages/NewsPage.jsx'
 import { RegisterPage } from './pages/RegisterPage.jsx'
 import { SalesPage } from './pages/SalesPage.jsx'
 import { SaleDetailPage } from './pages/SaleDetailPage.jsx'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { initFlowbite } from 'flowbite'
 
 export function App() {
+  useEffect(() => {
+    initFlowbite()
+  }, [])
   return (
     <div className='flex flex-col min-h-[101vh]'>
       <Menu />
