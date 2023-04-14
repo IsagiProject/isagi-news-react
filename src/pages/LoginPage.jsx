@@ -2,10 +2,12 @@ import { Link, Navigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useState } from 'react'
 import { useAuthActions } from '../hooks/useAuthActions.js'
+import Popup from '../components/modal/Popup.jsx'
 
 export function LoginPage() {
   const [loginSuccessful, setLoginSuccessful] = useState(false)
   const { addToken } = useAuthActions()
+  const [showPopup, setShowPopup] = useState(false)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -32,14 +34,26 @@ export function LoginPage() {
           // Inicio de sesión exitoso
         } else {
           form.reset()
+          setShowPopup(true)
           // Inicio de sesión fallido
           // window.alert('Usuario o contraseña incorrectos')
         }
       })
   }
 
+  const handleModalClick = () => {
+    setShowPopup(false)
+  }
+
   return (
     <div className='justify-center w-6/12 m-auto'>
+      <Popup
+        show={showPopup}
+        onClick={handleModalClick}
+        onClose={handleModalClick}
+        text='Usuario o contraseña incorrectos'
+        buttonText='Aceptar'
+      />
       {loginSuccessful && <Navigate to='/' />}
       <form
         onSubmit={handleSubmit}
