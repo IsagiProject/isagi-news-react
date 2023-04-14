@@ -3,15 +3,23 @@ import logo from '../assets/logo.png'
 import { useAppSelector } from '../hooks/store'
 import { useAuthActions } from '../hooks/useAuthActions'
 import { useUserData } from '../hooks/useUserData'
-import { DarkThemeToggle } from 'flowbite-react'
+import { DarkThemeToggle, useThemeMode } from 'flowbite-react'
+import { useStyleActions } from '../hooks/useStyleActions.js'
 
 export function Menu() {
   const token = useAppSelector((state) => state.token)
   const { removeToken } = useAuthActions()
   const { email } = useUserData(token)
+  const { switchDarkMode } = useStyleActions()
+  const [, , toggleMode] = useThemeMode()
 
   const handleLogout = () => {
     removeToken()
+  }
+
+  const changeTheme = () => {
+    switchDarkMode()
+    toggleMode()
   }
 
   return (
@@ -55,7 +63,7 @@ export function Menu() {
           </li>
         )}
         <li>
-          <DarkThemeToggle />
+          <DarkThemeToggle onClick={changeTheme} />
         </li>
       </ul>
     </nav>
