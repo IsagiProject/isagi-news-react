@@ -43,7 +43,7 @@ export function Menu() {
         </li>
         <li className=' h-full hover:bg-slate-500 hover:scale-105 transition duration-500 text-gray-300'>
           <Link className='block w-24 h-full py-5 text-center ' to='/faq'>
-            FAQ
+            FAQ´s
           </Link>
         </li>
         {token ? (

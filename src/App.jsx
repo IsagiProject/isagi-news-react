@@ -11,6 +11,7 @@ import { SaleDetailPage } from './pages/SaleDetailPage.jsx'
 import React from 'react'
 import { Flowbite } from 'flowbite-react'
 import { useAppSelector } from './hooks/store.js'
+import FaqsPage from './pages/FaqsPage.jsx'
 
 export function App() {
   const dark = useAppSelector((state) => state.style.dark)
@@ -28,6 +29,7 @@ export function App() {
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/sales/:id' element={<SaleDetailPage />} />
+            <Route path='/faq' element={<FaqsPage />} />
           </Routes>
         </div>
         <Footer />
