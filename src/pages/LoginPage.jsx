@@ -1,8 +1,6 @@
 import { Link, Navigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useState } from 'react'
-import { HiHome, HiUser } from 'react-icons/hi'
-import { Breadcrumb } from 'flowbite-react'
 import { useAuthActions } from '../hooks/useAuthActions.js'
 import Popup from '../components/modal/Popup.jsx'
 
@@ -49,17 +47,6 @@ export function LoginPage() {
 
   return (
     <div className='justify-center '>
-      <Breadcrumb
-        aria-label='Solid background breadcrumb example'
-        className='bg-slate-100 py-3 px-36 text-slate-600 dark:text-slate-300 dark:bg-slate-500'
-      >
-        <Breadcrumb.Item href='/' className='hover:scale-105' icon={HiHome}>
-          Home
-        </Breadcrumb.Item>
-        <Breadcrumb.Item href='/login' className='hover:scale-105' icon={HiUser}>
-          Login
-        </Breadcrumb.Item>
-      </Breadcrumb>
       <Popup
         show={showPopup}
         onClick={handleModalClick}
