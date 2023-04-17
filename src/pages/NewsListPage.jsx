@@ -11,20 +11,19 @@ export function NewsListPage() {
   useEffect(() => {
     getNewsByCategories(category).then((news) => setData(news))
   }, [])
-
   return (
     <div>
       <Breadcrumb
         aria-label='Solid background breadcrumb example'
         className='bg-slate-100 py-3 px-36  text-slate-600 dark:text-slate-300 dark:bg-slate-500'
       >
-        <Breadcrumb.Item href='/' icon={HiHome}>
+        <Breadcrumb.Item href='/' className='hover:scale-105' icon={HiHome}>
           Home
         </Breadcrumb.Item>
-        <Breadcrumb.Item href='/news' icon={HiNewspaper}>
+        <Breadcrumb.Item href='/news' className='hover:scale-105' icon={HiNewspaper}>
           Noticiero
         </Breadcrumb.Item>
-        <Breadcrumb.Item href='/news' icon={HiStar}>
+        <Breadcrumb.Item href='' className='hover:scale-105' icon={HiStar}>
           Noticias
         </Breadcrumb.Item>
       </Breadcrumb>

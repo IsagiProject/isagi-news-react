@@ -1,7 +1,8 @@
 import { Link, Navigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useState /*, useContext */ } from 'react'
-
+import { HiHome, HiUser, HiUserAdd } from 'react-icons/hi'
+import { Breadcrumb } from 'flowbite-react'
 export function RegisterPage() {
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -27,7 +28,7 @@ export function RegisterPage() {
         confirm
       })
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((data) => {
         // Aquí puedes manejar la respuesta del servidor
         if (data.status === 200) {
@@ -46,20 +47,47 @@ export function RegisterPage() {
           document.getElementById('confirm').value = ''
         }
       })
-      .catch(error => console.error(error))
+      .catch((error) => console.error(error))
   }
   return (
-    <div className='justify-center w-5/12 m-auto'>
+    <div className='justify-center'>
+      <Breadcrumb
+        aria-label='Solid background breadcrumb example'
+        className='bg-slate-100 py-3 px-36 text-slate-600 dark:text-slate-300 dark:bg-slate-500'
+      >
+        <Breadcrumb.Item href='/' className='hover:scale-105' icon={HiHome}>
+          Home
+        </Breadcrumb.Item>
+        <Breadcrumb.Item
+          href='/login'
+          className='hover:scale-105'
+          icon={HiUser}
+        >
+          Login
+        </Breadcrumb.Item>
+        <Breadcrumb.Item
+          href='/register'
+          className='hover:scale-105'
+          icon={HiUserAdd}
+        >
+          Registrarse
+        </Breadcrumb.Item>
+      </Breadcrumb>
       {registerSuccessful && <Navigate to='/' />}
       <form
         onSubmit={handleRegister}
-        className='bg-gray-700 p-10 my-8 justify-center rounded-lg'
+        className='bg-slate-400 dark:bg-slate-700 w-6/12 m-auto p-10 my-8 justify-center rounded-lg'
         action=''
       >
         <img src={logo} className='h-3/6 w-3/6 m-auto' alt='' />
-        <h1 className='text-2xl text-gray-400 text-center pb-3'>Registrarse</h1>
+        <h1 className='text-2xl text-slate-700 dark:text-slate-400 text-center pb-3'>
+          Registrarse
+        </h1>
         <div className='justify-evenly px-5 my-2 '>
-          <label htmlFor='name' className='text-gray-400 text-xl my-1 text-right'>
+          <label
+            htmlFor='name'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
+          >
             Nombre
           </label>
           <input
@@ -72,7 +100,7 @@ export function RegisterPage() {
           <br />
           <label
             htmlFor='last-name'
-            className='text-gray-400 text-xl my-1 text-right'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
           >
             Apellido
           </label>
@@ -86,7 +114,7 @@ export function RegisterPage() {
           <br />
           <label
             htmlFor='user-name'
-            className='text-gray-400 text-xl my-1 text-right'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
           >
             Usuario
           </label>
@@ -100,7 +128,7 @@ export function RegisterPage() {
           <br />
           <label
             htmlFor='Email'
-            className='text-gray-400 text-xl my-1 ml-2 text-right'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2 text-right'
           >
             Email
           </label>
@@ -113,7 +141,10 @@ export function RegisterPage() {
             onChange={(event) => setEmail(event.target.value)}
           />
           <br />
-          <label htmlFor='Password' className='text-gray-400 text-xl my-1 ml-2'>
+          <label
+            htmlFor='Password'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2'
+          >
             Clave
           </label>
           <input
@@ -124,7 +155,10 @@ export function RegisterPage() {
             onChange={(event) => setPassword(event.target.value)}
           />
           <br />
-          <label htmlFor='confirm' className='text-gray-400 text-xl my-1 ml-2'>
+          <label
+            htmlFor='confirm'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2'
+          >
             Confirmar Clave
           </label>
           <br />
@@ -142,7 +176,7 @@ export function RegisterPage() {
         <div className='flex justify-between'>
           <button
             type='button'
-            className='bg-gray-500 px-4 rounded-md hover:bg-slate-700 transition duration-200 text-gray-300'
+            className='bg-gray-500 px-4 rounded-md hover:bg-slate-800 transition duration-200 text-gray-300'
           >
             <Link className='block w-24 h-12 pt-3 text-center ' to='/login'>
               Atrás
@@ -151,7 +185,7 @@ export function RegisterPage() {
 
           <button
             type='submit'
-            className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-700 transition duration-200 text-gray-300'
+            className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-800 transition duration-200 text-gray-300'
           >
             <a className='block w-24 h-12 pt-3 text-center ' routerLink='/'>
               Registrarte
