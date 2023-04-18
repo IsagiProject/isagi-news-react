@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
 import { createPicker } from 'picmo'
 import { Comment } from './Comment'
+import { Spinner } from 'flowbite-react'
 import { useParams } from 'react-router-dom'
 import { sendComment, getComments } from '../services/sales'
 
 export function SaleComments() {
   const { id } = useParams()
   const [data, setData] = useState()
+  const [spinner, setSpinner] = useState(true)
   useEffect(() => {
-    getComments({ saleId: id }).then((comments) => setData(comments))
+    getComments({ saleId: id }).then((comments) => {
+      setData(comments)
+      setSpinner(false)
+    })
   }, [])
   const OnInput = () => {
     const tx = document.getElementsByTagName('textarea')[0]
@@ -72,7 +77,7 @@ export function SaleComments() {
   const [display, setDisplay] = useState(false)
 
   return (
-    <div className='bg-gray-700 p-8 mx-40 my-12 min-h-[5rem] justify-start rounded-xl flex object-cover text-white text-xl flex-col'>
+    <div className='bg-slate-300 dark:bg-slate-700 p-8 mx-40 my-12 min-h-[5rem] justify-start rounded-xl flex object-cover text-slate-800 dark:text-slate-300 text-xl flex-col'>
       <link
         rel='stylesheet'
         href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0'
@@ -101,6 +106,7 @@ export function SaleComments() {
         </button>
       </div>
       <div>
+        {spinner && <Spinner aria-label='Default status example' />}
         {data &&
           data.map((item) => <Comment comment={item} key={item.comment_id} />)}
       </div>

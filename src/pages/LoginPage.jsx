@@ -46,7 +46,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className='justify-center w-6/12 m-auto'>
+    <div className='justify-center '>
       <Popup
         show={showPopup}
         onClick={handleModalClick}
@@ -57,17 +57,17 @@ export function LoginPage() {
       {loginSuccessful && <Navigate to='/' />}
       <form
         onSubmit={handleSubmit}
-        className='bg-gray-700 p-12 my-8 justify-center rounded-lg'
+        className=' bg-slate-400 w-6/12 m-auto dark:bg-slate-700 p-12 my-8 justify-center rounded-lg'
         action=''
       >
         <img src={logo} className='h-3/6 w-3/6 m-auto mb-5' alt='' />
-        <h1 className='text-2xl text-gray-400 text-center pb-3'>
+        <h1 className='text-2xl text-slate-700 dark:text-slate-400 text-center pb-3'>
           Inicio Sesión
         </h1>
         <div className='justify-items-center text-center'>
           <label
             htmlFor='email'
-            className='text-gray-400 text-xl my-1 text-right'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
           >
             Email
           </label>
@@ -81,7 +81,7 @@ export function LoginPage() {
           <br />
           <label
             htmlFor='password'
-            className='text-gray-400 text-xl my-1 text-right'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
           >
             Clave
           </label>
@@ -96,7 +96,7 @@ export function LoginPage() {
         <div className='flex justify-between'>
           <button
             type='button'
-            className='bg-gray-500 px-1 rounded-md hover:bg-slate-700 transition duration-200 mx-1 text-gray-300'
+            className='bg-gray-500 px-1 rounded-md hover:bg-slate-800 transition duration-200 mx-1 text-gray-300'
           >
             <Link className='block w-24 h-12 pt-3 text-center ' to='/register'>
               Registrarte
@@ -105,7 +105,7 @@ export function LoginPage() {
 
           <button
             type='submit'
-            className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-700 transition duration-200 mx-1 text-gray-300'
+            className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-800 transition duration-200 mx-1 text-gray-300'
           >
             Iniciar Sesion
           </button>
