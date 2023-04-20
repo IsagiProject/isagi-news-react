@@ -1,6 +1,8 @@
 import { Link, Navigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useState } from 'react'
+import { HiEye, HiEyeOff } from 'react-icons/hi'
+import { Button } from 'flowbite-react'
 export function RegisterPage() {
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -47,6 +49,14 @@ export function RegisterPage() {
       })
       .catch((error) => console.error(error))
   }
+  const [passwordShown, setPasswordShown] = useState(false)
+  const [confirmShown, setConfirmShown] = useState(false)
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown)
+  }
+  const toggleConfirm = () => {
+    setConfirmShown(!confirmShown)
+  }
   return (
     <div className='justify-center'>
       {registerSuccessful && <Navigate to='/' />}
@@ -60,91 +70,110 @@ export function RegisterPage() {
           Registrarse
         </h1>
         <div className='justify-evenly px-5 my-2 '>
-          <label
-            htmlFor='name'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
-          >
-            Nombre
-          </label>
-          <input
-            type='text'
-            name='Name'
-            className='my-3 p-1 w-8/12 rounded-lg ml-3'
-            id='name'
-            onChange={(event) => setName(event.target.value)}
-          />
-          <br />
-          <label
-            htmlFor='last-name'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
-          >
-            Apellido
-          </label>
-          <input
-            type='text'
-            name='Last-name'
-            className='my-3 w-8/12 p-1 rounded-lg ml-2'
-            id='last-name'
-            onChange={(event) => setLastName(event.target.value)}
-          />
-          <br />
-          <label
-            htmlFor='user-name'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
-          >
-            Usuario
-          </label>
-          <input
-            type='text'
-            name='User'
-            className='my-3 p-1 w-8/12 rounded-lg ml-3'
-            id='user'
-            onChange={(event) => setUser(event.target.value)}
-          />
-          <br />
-          <label
-            htmlFor='Email'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2 text-right'
-          >
-            Email
-          </label>
-          <input
-            type='email'
-            name='Email'
-            className='my-3 p-1 w-8/12 rounded-lg ml-5'
-            placeholder='user@gmail.com'
-            id='email'
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <br />
-          <label
-            htmlFor='Password'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2'
-          >
-            Clave
-          </label>
-          <input
-            type='password'
-            name='Password'
-            className='mx-5 my-3 w-8/12  p-1 rounded-lg'
-            id='password'
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <br />
-          <label
-            htmlFor='confirm'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2'
-          >
-            Confirmar Clave
-          </label>
-          <br />
-          <input
-            type='password'
-            name='Confirm'
-            className='ml-20 my-3 w-8/12  p-1 rounded-lg'
-            id='confirm'
-            onChange={(event) => setConfirm(event.target.value)}
-          />
+          <div className='flex'>
+            <label
+              htmlFor='name'
+              className='text-slate-700 dark:text-slate-400 text-xl my-auto text-right'
+            >
+              Nombre
+            </label>
+            <input
+              type='text'
+              name='Name'
+              className='my-3 p-1 w-8/12 rounded-lg ml-2'
+              id='name'
+              onChange={(event) => setName(event.target.value)}
+            />
+          </div>
+          <div className='flex'>
+            <label
+              htmlFor='last-name'
+              className='text-slate-700 dark:text-slate-400 text-xl my-auto text-right'
+            >
+              Apellido
+            </label>
+            <input
+              type='text'
+              name='Last-name'
+              className='my-3 w-8/12 p-1 rounded-lg ml-2'
+              id='last-name'
+              onChange={(event) => setLastName(event.target.value)}
+            />
+          </div>
+          <div className='flex'>
+            <label
+              htmlFor='user-name'
+              className='text-slate-700 dark:text-slate-400 text-xl my-auto text-right'
+            >
+              Usuario
+            </label>
+            <input
+              type='text'
+              name='User'
+              className='my-3 p-1 w-8/12 rounded-lg ml-3'
+              id='user'
+              onChange={(event) => setUser(event.target.value)}
+            />
+          </div>
+
+          <div className='flex'>
+            <label
+              htmlFor='Email'
+              className='text-slate-700 dark:text-slate-400 text-xl my-auto mx-2 text-right'
+            >
+              Email
+            </label>
+            <input
+              type='email'
+              name='Email'
+              className='my-3 p-1 w-8/12 rounded-lg ml-4'
+              placeholder='user@gmail.com'
+              id='email'
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </div>
+          <div className='flex'>
+            <label
+              htmlFor='Password'
+              className='text-slate-700 dark:text-slate-400 text-xl my-auto ml-2'
+            >
+              Clave
+            </label>
+            <input
+              type={passwordShown ? 'text' : 'password'}
+              name='Password'
+              className='ml-6 my-3 w-7/12 text-gray-500  p-1 rounded-lg'
+              id='password'
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <Button
+              className='w-1/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
+              onClick={togglePassword}
+            >
+              {passwordShown ? <HiEye /> : <HiEyeOff />}
+            </Button>
+          </div>
+          <div className='flex'>
+            <label
+              htmlFor='confirm'
+              className='text-slate-700 my-auto dark:text-slate-400 text-xl ml-2'
+            >
+              Repetir
+            </label>
+            <input
+              type={confirmShown ? 'text' : 'password'}
+              name='Confirm'
+              className='ml-2.5 my-3 w-7/12 text-gray-500  p-1 rounded-lg'
+              id='confirm'
+              onChange={(event) => setConfirm(event.target.value)}
+            />
+            <Button
+              className='w-1/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
+              onClick={toggleConfirm}
+            >
+              {confirmShown ? <HiEye /> : <HiEyeOff />}
+            </Button>
+          </div>
         </div>
 
         <br />
