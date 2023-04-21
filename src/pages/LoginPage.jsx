@@ -3,11 +3,14 @@ import logo from '../assets/logo.png'
 import { useState } from 'react'
 import { useAuthActions } from '../hooks/useAuthActions.js'
 import Popup from '../components/modal/Popup.jsx'
+import RecoverPasswordFormModal from '../components/modal/RecoverPasswordFormModal.jsx'
 
 export function LoginPage() {
   const [loginSuccessful, setLoginSuccessful] = useState(false)
   const { addToken } = useAuthActions()
   const [showPopup, setShowPopup] = useState(false)
+  const [showRecoverPasswordPopup, setShowRecoverPasswordPopup] =
+    useState(false)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -45,6 +48,14 @@ export function LoginPage() {
     setShowPopup(false)
   }
 
+  const handleRecoverPassword = () => {
+    setShowRecoverPasswordPopup(true)
+  }
+
+  const handleRecoverPasswordModalClick = () => {
+    setShowRecoverPasswordPopup(false)
+  }
+
   return (
     <div className='justify-center '>
       <Popup
@@ -53,6 +64,10 @@ export function LoginPage() {
         onClose={handleModalClick}
         text='Usuario o contraseña incorrectos'
         buttonText='Aceptar'
+      />
+      <RecoverPasswordFormModal
+        onClose={handleRecoverPasswordModalClick}
+        show={showRecoverPasswordPopup}
       />
       {loginSuccessful && <Navigate to='/' />}
       <form
@@ -91,6 +106,11 @@ export function LoginPage() {
             className='my-3 p-1 rounded-lg ml-4'
             id='password'
           />
+          <p>
+            <a onClick={handleRecoverPassword} className='cursor-pointer'>
+              He olvidado mi contraseña
+            </a>
+          </p>
         </div>
         <br />
         <div className='flex justify-between'>
