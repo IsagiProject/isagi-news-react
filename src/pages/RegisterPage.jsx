@@ -1,55 +1,110 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
-
+import { useState } from 'react'
 export function RegisterPage() {
+  const [name, setName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [user, setUser] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirm, setConfirm] = useState('')
+  const [registerSuccessful, setRegisterSuccessful] = useState(false)
+
+  const handleRegister = (event) => {
+    event.preventDefault()
+    fetch('http://isagiapi.galder315.ga/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name,
+        lastName,
+        user,
+        email,
+        password,
+        confirm
+      })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Aquí puedes manejar la respuesta del servidor
+        if (data.status === 200) {
+          console.log(data)
+          window.alert('Registro completado')
+          setRegisterSuccessful(true)
+          // Inicio de sesión exitoso
+        } else {
+          // Inicio de sesión fallido
+          window.alert('Registro erroneo')
+          document.getElementById('name').value = ''
+          document.getElementById('lastName').value = ''
+          document.getElementById('user').value = ''
+          document.getElementById('email').value = ''
+          document.getElementById('password').value = ''
+          document.getElementById('confirm').value = ''
+        }
+      })
+      .catch((error) => console.error(error))
+  }
   return (
-    <div className='justify-center w-5/12 m-auto'>
+    <div className='justify-center'>
+      {registerSuccessful && <Navigate to='/' />}
       <form
-        className='bg-gray-700 p-10 my-8 justify-center rounded-lg'
+        onSubmit={handleRegister}
+        className='bg-slate-400 dark:bg-slate-700 w-6/12 m-auto p-10 my-8 justify-center rounded-lg'
         action=''
       >
         <img src={logo} className='h-3/6 w-3/6 m-auto' alt='' />
-        <h1 className='text-2xl text-gray-400 text-center pb-3'>Registrarse</h1>
+        <h1 className='text-2xl text-slate-700 dark:text-slate-400 text-center pb-3'>
+          Registrarse
+        </h1>
         <div className='justify-evenly px-5 my-2 '>
-          <label for='name' className='text-gray-400 text-xl my-1 text-right'>
+          <label
+            htmlFor='name'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
+          >
             Nombre
           </label>
           <input
             type='text'
-            name='name'
+            name='Name'
             className='my-3 p-1 w-8/12 rounded-lg ml-3'
             id='name'
+            onChange={(event) => setName(event.target.value)}
           />
           <br />
           <label
-            for='last-name'
-            className='text-gray-400 text-xl my-1 text-right'
+            htmlFor='last-name'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
           >
             Apellido
           </label>
           <input
             type='text'
-            name='last-name'
+            name='Last-name'
             className='my-3 w-8/12 p-1 rounded-lg ml-2'
             id='last-name'
+            onChange={(event) => setLastName(event.target.value)}
           />
           <br />
           <label
-            for='user-name'
-            className='text-gray-400 text-xl my-1 text-right'
+            htmlFor='user-name'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
           >
             Usuario
           </label>
           <input
             type='text'
-            name='user-name'
+            name='User'
             className='my-3 p-1 w-8/12 rounded-lg ml-3'
-            id='user-name'
+            id='user'
+            onChange={(event) => setUser(event.target.value)}
           />
           <br />
           <label
-            for='Email'
-            className='text-gray-400 text-xl my-1 ml-2 text-right'
+            htmlFor='Email'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2 text-right'
           >
             Email
           </label>
@@ -59,9 +114,13 @@ export function RegisterPage() {
             className='my-3 p-1 w-8/12 rounded-lg ml-5'
             placeholder='user@gmail.com'
             id='email'
+            onChange={(event) => setEmail(event.target.value)}
           />
           <br />
-          <label for='Password' className='text-gray-400 text-xl my-1 ml-2'>
+          <label
+            htmlFor='Password'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2'
+          >
             Clave
           </label>
           <input
@@ -69,17 +128,22 @@ export function RegisterPage() {
             name='Password'
             className='mx-5 my-3 w-8/12  p-1 rounded-lg'
             id='password'
+            onChange={(event) => setPassword(event.target.value)}
           />
           <br />
-          <label for='confirm' className='text-gray-400 text-xl my-1 ml-2'>
+          <label
+            htmlFor='confirm'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2'
+          >
             Confirmar Clave
           </label>
           <br />
           <input
-            type='text'
-            name='confirm'
+            type='password'
+            name='Confirm'
             className='ml-20 my-3 w-8/12  p-1 rounded-lg'
             id='confirm'
+            onChange={(event) => setConfirm(event.target.value)}
           />
         </div>
 
@@ -88,7 +152,7 @@ export function RegisterPage() {
         <div className='flex justify-between'>
           <button
             type='button'
-            className='bg-gray-500 px-4 rounded-md hover:bg-slate-700 transition duration-200 text-gray-300'
+            className='bg-gray-500 px-4 rounded-md hover:bg-slate-800 transition duration-200 text-gray-300'
           >
             <Link className='block w-24 h-12 pt-3 text-center ' to='/login'>
               Atrás
@@ -96,8 +160,8 @@ export function RegisterPage() {
           </button>
 
           <button
-            type='button'
-            className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-700 transition duration-200 text-gray-300'
+            type='submit'
+            className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-800 transition duration-200 text-gray-300'
           >
             <a className='block w-24 h-12 pt-3 text-center ' routerLink='/'>
               Registrarte

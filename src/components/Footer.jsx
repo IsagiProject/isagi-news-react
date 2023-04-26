@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className='min-h-[50px] h-auto text-xs bg-gray-800 text-white w-full mt-8'>
+    <footer className='min-h-[50px] h-auto text-xs bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-300 w-full mt-8'>
       <b>
         <h2 className='text-center'>Sobre nosotros</h2>
       </b>

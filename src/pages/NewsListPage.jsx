@@ -9,7 +9,6 @@ export function NewsListPage() {
   useEffect(() => {
     getNewsByCategories(category).then((news) => setData(news))
   }, [])
-
   return (
     <div>
       {data &&
