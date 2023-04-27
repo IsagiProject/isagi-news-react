@@ -1,15 +1,21 @@
 import { Link, Navigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
-import { useState /*, useContext */ } from 'react'
-// import LoginContext from '../context/LoginContext'
+import { useState } from 'react'
+import { useAuthActions } from '../hooks/useAuthActions.js'
+import Popup from '../components/modal/Popup.jsx'
 
 export function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [loginSuccessful, setLoginSuccessful] = useState(false)
-  // const value = useContext(LoginContext)
+  const { addToken } = useAuthActions()
+  const [showPopup, setShowPopup] = useState(false)
+
   const handleSubmit = (event) => {
     event.preventDefault()
+    const form = event.target
+    const formData = new FormData(form)
+    const email = formData.get('email')
+    const password = formData.get('password')
+
     // Aquí puedes enviar los datos al servidor para su validación
     fetch('https://isagiapi.galder315.ga/auth/login', {
       method: 'POST',
@@ -22,66 +28,75 @@ export function LoginPage() {
       .then((data) => {
         // Aquí puedes manejar la respuesta del servidor
         if (data.status === 200) {
-          console.log(data)
-          window.localStorage.setItem('token', data.token)
+          addToken(data.token)
           setLoginSuccessful(true)
 
           // Inicio de sesión exitoso
         } else {
+          form.reset()
+          setShowPopup(true)
           // Inicio de sesión fallido
-          window.alert('Usuario o contraseña incorrectos')
-          document.getElementById('email').value = ''
-          document.getElementById('password').value = ''
+          // window.alert('Usuario o contraseña incorrectos')
         }
       })
   }
 
+  const handleModalClick = () => {
+    setShowPopup(false)
+  }
+
   return (
-    <div className='justify-center w-6/12 m-auto'>
+    <div className='justify-center '>
+      <Popup
+        show={showPopup}
+        onClick={handleModalClick}
+        onClose={handleModalClick}
+        text='Usuario o contraseña incorrectos'
+        buttonText='Aceptar'
+      />
       {loginSuccessful && <Navigate to='/' />}
       <form
         onSubmit={handleSubmit}
-        className='bg-gray-700 p-12 my-8 justify-center rounded-lg'
+        className=' bg-slate-400 w-6/12 m-auto dark:bg-slate-700 p-12 my-8 justify-center rounded-lg'
         action=''
       >
         <img src={logo} className='h-3/6 w-3/6 m-auto mb-5' alt='' />
-        <h1 className='text-2xl text-gray-400 text-center pb-3'>
+        <h1 className='text-2xl text-slate-700 dark:text-slate-400 text-center pb-3'>
           Inicio Sesión
         </h1>
         <div className='justify-items-center text-center'>
-          <label htmlFor='Email' className='text-gray-400 text-xl my-1 text-right'>
+          <label
+            htmlFor='email'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
+          >
             Email
           </label>
           <input
             type='email'
-            name='Email'
-            value={email}
+            name='email'
             className='my-3 p-1 rounded-lg ml-4'
             placeholder='user@gmail.com'
             id='email'
-            onChange={(event) => setEmail(event.target.value)}
           />
           <br />
           <label
-            htmlFor='Password'
-            className='text-gray-400 text-xl my-1 text-right'
+            htmlFor='password'
+            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
           >
             Clave
           </label>
           <input
             type='password'
-            name='Password'
-            value={password}
+            name='password'
             className='my-3 p-1 rounded-lg ml-4'
             id='password'
-            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
         <br />
         <div className='flex justify-between'>
           <button
             type='button'
-            className='bg-gray-500 px-1 rounded-md hover:bg-slate-700 transition duration-200 mx-1 text-gray-300'
+            className='bg-gray-500 px-1 rounded-md hover:bg-slate-800 transition duration-200 mx-1 text-gray-300'
           >
             <Link className='block w-24 h-12 pt-3 text-center ' to='/register'>
               Registrarte
@@ -90,7 +105,7 @@ export function LoginPage() {
 
           <button
             type='submit'
-            className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-700 transition duration-200 mx-1 text-gray-300'
+            className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-800 transition duration-200 mx-1 text-gray-300'
           >
             Iniciar Sesion
           </button>

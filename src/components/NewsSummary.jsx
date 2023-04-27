@@ -8,7 +8,7 @@ export function NewsSummary({ news }) {
   }
 
   return (
-    <div className='m-auto w-5/6 h-5/6 p-6 my-6 bg-slate-800 rounded-md'>
+    <div className='m-auto w-5/6 h-5/6 p-6 my-6 bg-slate-300  dark:bg-slate-800  rounded-md'>
       <div
         id='post'
         className={`text-gray-300 rounded-lg ${
@@ -21,13 +21,13 @@ export function NewsSummary({ news }) {
               opacity: 1,
               zIndex: 2
             }}
-            className='text-4xl max-h-20 text-grey-300  align-middle font-bold pb-11 pt-5 '
+            className='text-4xl max-h-20 text-slate-800 dark:text-slate-300 align-middle font-bold pb-11 pt-5 '
           >
             {news.title}
           </h1>
         </div>
         <div className='flex'>
-          <p className='min-w-[70%]'>{news.text}</p>
+          <p className='min-w-[70%] text-slate-800 dark:text-slate-300 '>{news.text}</p>
           <img
             className='min-h-[30%] min-w-[30%] '
             src={news.image}
@@ -38,7 +38,7 @@ export function NewsSummary({ news }) {
         </div>
       </div>
       <button
-        className='mt-5 relative text-gray-300 font-bold'
+        className='mt-5 relative text-slate-800 dark:text-slate-300  font-bold'
         onClick={handleClick}
       >
         Read More...
