@@ -13,6 +13,7 @@ import { Flowbite } from 'flowbite-react'
 import { useAppSelector } from './hooks/store.js'
 import FaqsPage from './pages/FaqsPage.jsx'
 import MenuBreadcrumb from './components/breadcrumbs/MenuBreadcrumb.jsx'
+import ResetPasswordPage from './pages/ResetPasswordPage.jsx'
 
 export function App() {
   const dark = useAppSelector((state) => state.style.dark)
@@ -32,6 +33,7 @@ export function App() {
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/sales/:id' element={<SaleDetailPage />} />
             <Route path='/faq' element={<FaqsPage />} />
+            <Route path='/reset-password' element={<ResetPasswordPage />} />
           </Routes>
         </div>
         <Footer />
