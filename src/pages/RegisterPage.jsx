@@ -1,6 +1,7 @@
 import { Link, Navigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useState } from 'react'
+import { useAppSelector } from '../hooks/store.js'
 export function RegisterPage() {
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -9,6 +10,7 @@ export function RegisterPage() {
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [registerSuccessful, setRegisterSuccessful] = useState(false)
+  const token = useAppSelector((state) => state.token)
 
   const handleRegister = (event) => {
     event.preventDefault()
@@ -50,6 +52,8 @@ export function RegisterPage() {
   return (
     <div className='justify-center'>
       {registerSuccessful && <Navigate to='/' />}
+      {token && <Navigate to='/' />}
+
       <form
         onSubmit={handleRegister}
         className='bg-slate-400 dark:bg-slate-700 w-6/12 m-auto p-10 my-8 justify-center rounded-lg'

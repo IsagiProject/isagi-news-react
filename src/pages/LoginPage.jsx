@@ -3,11 +3,13 @@ import logo from '../assets/logo.png'
 import { useState } from 'react'
 import { useAuthActions } from '../hooks/useAuthActions.js'
 import Popup from '../components/modal/Popup.jsx'
+import { useAppSelector } from '../hooks/store.js'
 
 export function LoginPage() {
   const [loginSuccessful, setLoginSuccessful] = useState(false)
   const { addToken } = useAuthActions()
   const [showPopup, setShowPopup] = useState(false)
+  const token = useAppSelector((state) => state.token)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -47,6 +49,7 @@ export function LoginPage() {
 
   return (
     <div className='justify-center '>
+      {token && <Navigate to='/' />}
       <Popup
         show={showPopup}
         onClick={handleModalClick}
