@@ -1,6 +1,6 @@
 import { Navbar } from 'flowbite-react'
 import { useNavigate } from 'react-router-dom'
-export default function NavbarItem({ to, text }) {
+export default function NavbarItem({ to, text, onClick }) {
   const navigate = useNavigate()
   //if path matches current path, add active
 
@@ -8,7 +8,10 @@ export default function NavbarItem({ to, text }) {
     navigate(to)
   }
   return (
-    <Navbar.Link className='md:my-4 cursor-pointer' onClick={handleClick}>
+    <Navbar.Link
+      className='md:my-4 cursor-pointer'
+      onClick={onClick ?? handleClick}
+    >
       {text}
     </Navbar.Link>
   )

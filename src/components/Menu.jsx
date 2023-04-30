@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useAppSelector } from '../hooks/store'
 import { useAuthActions } from '../hooks/useAuthActions'
@@ -15,6 +14,7 @@ export function Menu() {
   const [, , toggleMode] = useThemeMode()
 
   const handleLogout = () => {
+    console.log('logout')
     removeToken()
   }
 
