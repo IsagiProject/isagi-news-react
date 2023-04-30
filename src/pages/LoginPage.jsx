@@ -19,7 +19,7 @@ export function LoginPage() {
     const password = formData.get('password')
 
     // Aquí puedes enviar los datos al servidor para su validación
-    fetch('https://isagiapi.galder315.ga/auth/login', {
+    fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

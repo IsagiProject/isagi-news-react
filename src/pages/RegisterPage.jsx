@@ -14,7 +14,7 @@ export function RegisterPage() {
 
   const handleRegister = (event) => {
     event.preventDefault()
-    fetch('http://isagiapi.galder315.ga/auth/register', {
+    fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

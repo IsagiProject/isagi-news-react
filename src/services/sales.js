@@ -1,10 +1,10 @@
 export const getSales = async () => {
-  return fetch('http://isagiapi.galder315.ga/sales')
+  return fetch(`${import.meta.env.VITE_API_URL}/sales`)
     .then((res) => res.json())
     .then(({ data }) => data)
 }
 export const sendComment = async ({ token, comment, saleId, parentId }) => {
-  return fetch(`https://isagiapi.galder315.ga/sales/${saleId}/comments`, {
+  return fetch(`${import.meta.env.VITE_API_URL}/sales/${saleId}/comments`, {
     cors: 'no-cors',
     method: 'POST',
     headers: {
@@ -17,12 +17,12 @@ export const sendComment = async ({ token, comment, saleId, parentId }) => {
     .then(({ data }) => data)
 }
 export const getComments = async ({ saleId }) => {
-  return fetch(`https://isagiapi.galder315.ga/sales/${saleId}/comments`)
+  return fetch(`${import.meta.env.VITE_API_URL}/sales/${saleId}/comments`)
     .then((res) => res.json())
     .then(({ data }) => data)
 }
 export const getSaleDetail = async ({ saleId }) => {
-  return fetch(`https://isagiapi.galder315.ga/sales/${saleId}`)
+  return fetch(`${import.meta.env.VITE_API_URL}/sales/${saleId}`)
     .then((res) => res.json())
     .then(({ data }) => data)
 }
