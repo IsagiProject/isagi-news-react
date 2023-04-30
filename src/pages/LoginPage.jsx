@@ -16,6 +16,7 @@ export function LoginPage() {
     event.preventDefault()
     const form = event.target
     const formData = new FormData(form)
+    console.log(event.target)
     const email = formData.get('email')
     const password = formData.get('password')
 
@@ -82,6 +83,7 @@ export function LoginPage() {
           <TextInput
             id='email'
             type='email'
+            name='email'
             icon={HiMail}
             placeholder='ejemplo@email.com'
             required
@@ -92,6 +94,7 @@ export function LoginPage() {
           <TextInput
             id='password'
             type='password'
+            name='password'
             icon={HiLockClosed}
             required
           />
