@@ -1,13 +1,16 @@
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useState } from 'react'
 import { useAuthActions } from '../hooks/useAuthActions.js'
 import Popup from '../components/modal/Popup.jsx'
+import { Button, Label, TextInput } from 'flowbite-react'
+import { HiLockClosed, HiMail } from 'react-icons/hi'
 
 export function LoginPage() {
   const [loginSuccessful, setLoginSuccessful] = useState(false)
   const { addToken } = useAuthActions()
   const [showPopup, setShowPopup] = useState(false)
+  const navigate = useNavigate()
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -45,6 +48,10 @@ export function LoginPage() {
     setShowPopup(false)
   }
 
+  const handleGoToRegister = () => {
+    navigate('/register')
+  }
+
   return (
     <div className='justify-center '>
       <Popup
@@ -57,58 +64,44 @@ export function LoginPage() {
       {loginSuccessful && <Navigate to='/' />}
       <form
         onSubmit={handleSubmit}
-        className=' bg-slate-400 w-6/12 m-auto dark:bg-slate-700 p-12 my-8 justify-center rounded-lg'
+        className=' bg-slate-400 w-3/4 m-auto dark:bg-slate-700 p-12 my-8 justify-center rounded-lg max-md:w-full'
         action=''
       >
-        <img src={logo} className='h-3/6 w-3/6 m-auto mb-5' alt='' />
-        <h1 className='text-2xl text-slate-700 dark:text-slate-400 text-center pb-3'>
+        <img
+          src={logo}
+          className='h-1/3 w-1/3 m-auto mb-5 max-md:h-1/2 max-md:w-1/2'
+          alt=''
+        />
+        <h1 className='text-2xl font-bold text-slate-700 dark:text-slate-400 text-center pb-3'>
           Inicio Sesión
         </h1>
         <div className='justify-items-center text-center'>
-          <label
-            htmlFor='email'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
-          >
-            Email
-          </label>
-          <input
-            type='email'
-            name='email'
-            className='my-3 p-1 rounded-lg ml-4'
-            placeholder='user@gmail.com'
+          <div className='mb-2 block'>
+            <Label htmlFor='email' value='Email' />
+          </div>
+          <TextInput
             id='email'
+            type='email'
+            icon={HiMail}
+            placeholder='ejemplo@email.com'
+            required
           />
-          <br />
-          <label
-            htmlFor='password'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
-          >
-            Clave
-          </label>
-          <input
-            type='password'
-            name='password'
-            className='my-3 p-1 rounded-lg ml-4'
+          <div className='my-2 block'>
+            <Label htmlFor='password' value='Contraseña' />
+          </div>
+          <TextInput
             id='password'
+            type='password'
+            icon={HiLockClosed}
+            required
           />
         </div>
         <br />
-        <div className='flex justify-between'>
-          <button
-            type='button'
-            className='bg-gray-500 px-1 rounded-md hover:bg-slate-800 transition duration-200 mx-1 text-gray-300'
-          >
-            <Link className='block w-24 h-12 pt-3 text-center ' to='/register'>
-              Registrarte
-            </Link>
-          </button>
-
-          <button
-            type='submit'
-            className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-800 transition duration-200 mx-1 text-gray-300'
-          >
-            Iniciar Sesion
-          </button>
+        <div className='flex justify-between max-md:flex-col gap-3'>
+          <Button color='light' onClick={handleGoToRegister}>
+            Registrarse
+          </Button>
+          <Button type='submit'>Iniciar Sesion</Button>
         </div>
       </form>
     </div>
