@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useState } from 'react'
 import { useAuthActions } from '../hooks/useAuthActions.js'
