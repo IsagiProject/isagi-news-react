@@ -1,0 +1,6 @@
+{
+  "appId": "com.isaginews.app",
+  "appName": "Isagi News",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
