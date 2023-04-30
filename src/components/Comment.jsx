@@ -1,9 +1,12 @@
+import { useAppSelector } from '../hooks/store.js'
 import { CommentInput } from './CommentInput'
 import { CommentsList } from './CommentsList'
 import { useState } from 'react'
 
 export function Comment({ comment, updateComments }) {
   const [display, setDisplay] = useState(false)
+  const token = useAppSelector((state) => state.token)
+
   const handleClick = () => {
     setDisplay(!display)
   }
@@ -20,7 +23,7 @@ export function Comment({ comment, updateComments }) {
     <div className='my-2'>
       <h4 className='font-bold text-lg'>{comment.username}</h4>
       <p className='text-sm break-words'>{comment.text}</p>
-      <button onClick={handleResponseClick}>Responder</button>
+      {token && <button onClick={handleResponseClick}>Responder</button>}
       <CommentInput
         addResponse={addResponse}
         id={comment.sale_id}
