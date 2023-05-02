@@ -19,7 +19,7 @@ export const sendComment = async ({ token, comment, saleId, parentId }) => {
 export const getComments = async ({ saleId }) => {
   return fetch(`https://isagiapi.galder315.ga/sales/${saleId}/comments`)
     .then((res) => res.json())
-    .then(({ data }) => data)
+    .then(({ data, total }) => ({ data, total }))
 }
 export const getSaleDetail = async ({ saleId }) => {
   return fetch(`https://isagiapi.galder315.ga/sales/${saleId}`)

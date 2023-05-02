@@ -9,7 +9,7 @@ import { useStyleActions } from '../hooks/useStyleActions.js'
 export function Menu() {
   const token = useAppSelector((state) => state.token)
   const { removeToken } = useAuthActions()
-  const { email } = useUserData(token)
+  const { username } = useUserData(token)
   const { switchDarkMode } = useStyleActions()
   const [, , toggleMode] = useThemeMode()
 
@@ -52,7 +52,7 @@ export function Menu() {
               className='block w-24 h-full py-5 text-center '
               onClick={handleLogout}
             >
-              Cerrar sesion {email}
+              Cerrar sesion {username}
             </button>
           </li>
         ) : (
