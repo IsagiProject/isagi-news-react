@@ -100,11 +100,13 @@ export function LoginPage() {
           />
         </div>
         <br />
-        <div className='flex justify-between max-md:flex-col gap-3'>
+        <div className='flex justify-between max-md:flex-col gap-3 mt-4'>
           <Button color='light' onClick={handleGoToRegister}>
             Registrarse
           </Button>
-          <Button type='submit'>Iniciar Sesion</Button>
+          <Button type='submit' color='dark'>
+            Iniciar Sesion
+          </Button>
         </div>
       </form>
     </div>
