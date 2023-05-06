@@ -25,9 +25,11 @@ export function Comment({ comment, updateComments }) {
       <h4 className='font-bold text-sm'>{comment.username}</h4>
       <p className='text-base break-words'>{comment.text}</p>
       <div className='flex items-center'>
-        {token && <button onClick={handleResponseClick} className='text-sm mr-6'>
-          Responder
-        </button>}
+        {token && (
+          <button onClick={handleResponseClick} className='text-sm mr-6'>
+            Responder
+          </button>
+        )}
         {comment.child_comments.length !== 0 ? (
           <button className='text-sm' onClick={handleClick}>
             {display ? (
