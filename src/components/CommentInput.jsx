@@ -22,7 +22,6 @@ export function CommentInput({
     tx.style.height = 0
     tx.style.height = tx.scrollHeight + 'px'
   }
-  const token = useAppSelector((state) => state.token)
 
   useEffect(() => {
     OnInput()
