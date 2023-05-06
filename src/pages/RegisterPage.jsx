@@ -1,16 +1,18 @@
 import { Link, Navigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useState } from 'react'
+import { useAppSelector } from '../hooks/store.js'
 export function RegisterPage() {
   const [user, setUser] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [registerSuccessful, setRegisterSuccessful] = useState(false)
+  const token = useAppSelector((state) => state.token)
 
   const handleRegister = (event) => {
     event.preventDefault()
-    fetch('http://isagiapi.galder315.ga/auth/register', {
+    fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -44,6 +46,8 @@ export function RegisterPage() {
   return (
     <div className='justify-center'>
       {registerSuccessful && <Navigate to='/' />}
+      {token && <Navigate to='/' />}
+
       <form
         onSubmit={handleRegister}
         className='bg-slate-400 dark:bg-slate-700 w-6/12 m-auto p-10 my-8 justify-center rounded-lg'

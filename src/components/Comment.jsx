@@ -1,10 +1,13 @@
 import { MdExpandLess, MdExpandMore } from 'react-icons/md'
+import { useAppSelector } from '../hooks/store.js'
 import { CommentInput } from './CommentInput'
 import { CommentsList } from './CommentsList'
 import { useState } from 'react'
 
 export function Comment({ comment, updateComments }) {
   const [display, setDisplay] = useState(false)
+  const token = useAppSelector((state) => state.token)
+
   const handleClick = () => {
     setDisplay(!display)
   }
@@ -22,9 +25,9 @@ export function Comment({ comment, updateComments }) {
       <h4 className='font-bold text-sm'>{comment.username}</h4>
       <p className='text-base break-words'>{comment.text}</p>
       <div className='flex items-center'>
-        <button onClick={handleResponseClick} className='text-sm mr-6'>
+        {token && <button onClick={handleResponseClick} className='text-sm mr-6'>
           Responder
-        </button>
+        </button>}
         {comment.child_comments.length !== 0 ? (
           <button className='text-sm' onClick={handleClick}>
             {display ? (

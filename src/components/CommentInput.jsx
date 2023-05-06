@@ -22,6 +22,7 @@ export function CommentInput({
     tx.style.height = 0
     tx.style.height = tx.scrollHeight + 'px'
   }
+  const token = useAppSelector((state) => state.token)
 
   useEffect(() => {
     OnInput()
@@ -86,7 +87,9 @@ export function CommentInput({
     })
   }
   return (
-    <div className={`${visible ? 'block' : 'hidden'} flex flex-row pb-4`}>
+    <div
+      className={`${token && visible ? 'block' : 'hidden'} flex flex-row pb-4`}
+    >
       <textarea
         ref={textRef}
         onInput={OnInput}

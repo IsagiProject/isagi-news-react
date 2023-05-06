@@ -4,6 +4,7 @@ import { getSales } from '../services/sales.js'
 import { Button } from 'flowbite-react'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../hooks/store.js'
+import SaleSkeleton from '../components/skeletons/SaleSkeleton.jsx'
 
 export function SalesPage() {
   const [data, setData] = useState()
@@ -23,7 +24,16 @@ export function SalesPage() {
         </Button>
       )}
       <div>
-        {data && data.map((item) => <Sale sale={item} key={item.sale_id} />)}
+        {data ? (
+          data.map((item) => <Sale sale={item} key={item.sale_id} />)
+        ) : (
+          <>
+            <SaleSkeleton />
+            <SaleSkeleton />
+            <SaleSkeleton />
+            <span class='sr-only'>Loading...</span>
+          </>
+        )}
       </div>
     </>
   )
