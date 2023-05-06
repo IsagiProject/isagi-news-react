@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef } from 'react'
 import { createPicker } from 'picmo'
 import { sendComment } from '../services/sales'
-import { useAppSelector } from '../hooks/store.js'
+import { useAppSelector } from '../hooks/store'
+import { useUserData } from '../hooks/useUserData'
+import { MdOutlineAddReaction, MdSend } from 'react-icons/md'
 
 export function CommentInput({
   setData,
@@ -11,6 +13,8 @@ export function CommentInput({
   parentId,
   addResponse
 }) {
+  const token = useAppSelector((state) => state.token)
+  const { username } = useUserData(token)
   const emojiRef = useRef()
   const textRef = useRef()
   const OnInput = () => {
@@ -66,8 +70,6 @@ export function CommentInput({
     console.log('Comentario enviado')
     const comment = textRef.current.value
     textRef.current.value = ''
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJuYW1lIjoiVEVTVCIsImVtYWlsIjoidGVzdEBnYWxkZXIzMTUuZ2EiLCJpYXQiOjE2ODAwMjIzMTEsImV4cCI6MTcxMTU3OTkxMX0.Uhm6gER92EWcgqbY-OE1GnEZnhkz5D48ilJN_RoGGI8'
     const { commentId } = await sendComment({
       saleId: id,
       comment,
@@ -76,7 +78,7 @@ export function CommentInput({
     })
     console.log(commentId)
     addResponse({
-      username: '@Cambiar esto',
+      username: '@' + username,
       text: comment,
       sale_id: id,
       parent_id: parentId,
@@ -92,11 +94,11 @@ export function CommentInput({
         ref={textRef}
         onInput={OnInput}
         placeholder='Escribe tu comentario:'
-        className='bg-transparent border-solid border-white border-b-2 outline-none resize-none overflow-hidden h-0 text-sm w-11/12'
+        className='bg-transparent border-solid border-x-0 border-t-0 p-0 border-white border-b-2 outline-none resize-none focus:border-white focus:ring-0 overflow-hidden h-0 text-sm w-11/12'
       />
       <div className='relative inline'>
-        <button id='botonemoji' onClick={handleEmojiClick}>
-          <span className='material-symbols-outlined px-4'>add_reaction</span>
+        <button id='botonemoji' className='mx-3' onClick={handleEmojiClick}>
+          <MdOutlineAddReaction />
         </button>
 
         <div
@@ -108,7 +110,7 @@ export function CommentInput({
       </div>
 
       <button onClick={handleSubmitComment}>
-        <span className='material-symbols-outlined'>send</span>
+        <MdSend />
       </button>
     </div>
   )

@@ -3,8 +3,6 @@ import logo from '../assets/logo.png'
 import { useState } from 'react'
 import { useAppSelector } from '../hooks/store.js'
 export function RegisterPage() {
-  const [name, setName] = useState('')
-  const [lastName, setLastName] = useState('')
   const [user, setUser] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -20,8 +18,6 @@ export function RegisterPage() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name,
-        lastName,
         user,
         email,
         password,
@@ -39,8 +35,6 @@ export function RegisterPage() {
         } else {
           // Inicio de sesión fallido
           window.alert('Registro erroneo')
-          document.getElementById('name').value = ''
-          document.getElementById('lastName').value = ''
           document.getElementById('user').value = ''
           document.getElementById('email').value = ''
           document.getElementById('password').value = ''
@@ -64,34 +58,8 @@ export function RegisterPage() {
           Registrarse
         </h1>
         <div className='justify-evenly px-5 my-2 '>
-          <label
-            htmlFor='name'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
-          >
-            Nombre
-          </label>
-          <input
-            type='text'
-            name='Name'
-            className='my-3 p-1 w-8/12 rounded-lg ml-3'
-            id='name'
-            onChange={(event) => setName(event.target.value)}
-          />
           <br />
-          <label
-            htmlFor='last-name'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
-          >
-            Apellido
-          </label>
-          <input
-            type='text'
-            name='Last-name'
-            className='my-3 w-8/12 p-1 rounded-lg ml-2'
-            id='last-name'
-            onChange={(event) => setLastName(event.target.value)}
-          />
-          <br />
+
           <label
             htmlFor='user-name'
             className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
