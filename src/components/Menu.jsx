@@ -9,7 +9,7 @@ import NavbarItem from './navbar/NavbarItem.jsx'
 export function Menu() {
   const token = useAppSelector((state) => state.token)
   const { removeToken } = useAuthActions()
-  const { email } = useUserData(token)
+  const { username } = useUserData(token)
   const { switchDarkMode } = useStyleActions()
   const [, , toggleMode] = useThemeMode()
 

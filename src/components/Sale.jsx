@@ -12,7 +12,7 @@ export function Sale({ sale }) {
       <div className='max-md:w-full flex flex-col w-9/12'>
         <div className='max-md:flex-col flex flex-row justify-between'>
           <h1 className='max-md:block max-md:ml-0 text-2xl text-slate-800 dark:text-slate-300 text-center ml-6 inline font-bold'>
-            <Link to='/sales/1'>{sale.title}</Link>
+            <Link to={`/sales/${sale.sale_id}`}>{sale.title}</Link>
           </h1>
           <h1 className='text-lg text-slate-800 dark:text-slate-300 text-center inline'>
             {sale.username}
