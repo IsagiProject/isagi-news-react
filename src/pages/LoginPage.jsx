@@ -101,14 +101,14 @@ export function LoginPage() {
           <div className='flex'>
             <TextInput
               id='password'
-              className='w-11/12'
+              className='w-11/12 max:md-w-10/12'
               type={passwordShown ? 'text' : 'password'}
               name='password'
               icon={HiLockClosed}
               required
             />
             <Button
-              className='w-1/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
+              className='w-1/12 max-md:w-2/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
               onClick={togglePassword}
             >
               {passwordShown ? <HiEye /> : <HiEyeOff />}

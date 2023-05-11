@@ -5,6 +5,7 @@ import { HiEye, HiEyeOff, HiLockClosed, HiMail, HiUser } from 'react-icons/hi'
 import { Button, Label, TextInput } from 'flowbite-react'
 import { useAppSelector } from '../hooks/store.js'
 import Popup from '../components/modal/Popup.jsx'
+import SuccessAlert from '../components/alerts/SuccessAlert.jsx'
 
 export function RegisterPage() {
   const [user, setUser] = useState('')
@@ -22,6 +23,12 @@ export function RegisterPage() {
 
   const handleRegister = (event) => {
     event.preventDefault()
+    if (password.length < 8) {
+      setPopupData({
+        text: 'La contraseña debe tener al menos 8 caracteres',
+        buttonText: 'Aceptar'
+      })
+    }
 
     if (password !== confirm) {
       setPopupData({
@@ -61,6 +68,7 @@ export function RegisterPage() {
             text: 'Los datos no son validos',
             buttonText: 'Aceptar'
           })
+          setShowPopup(true)
           setUser('')
           setEmail('')
           setPassword('')
@@ -73,6 +81,7 @@ export function RegisterPage() {
             text: 'El email ya existe',
             buttonText: 'Aceptar'
           })
+          setShowPopup(true)
           setEmail('')
         }
       })
@@ -95,7 +104,6 @@ export function RegisterPage() {
   }
   return (
     <div className='justify-center'>
-      {registerSuccessful && <Navigate to='/' />}
       {token && <Navigate to='/' />}
       <Popup
         show={showPopup}
@@ -106,10 +114,17 @@ export function RegisterPage() {
       />
       <form
         onSubmit={handleRegister}
-        className='bg-slate-400 dark:bg-slate-700 w-6/12 m-auto p-10 my-8 justify-center rounded-lg'
+        className=' bg-slate-400 w-3/4 m-auto dark:bg-slate-700 p-12 my-8 justify-center rounded-lg max-md:w-full'
         action=''
       >
-        <img src={logo} className='h-3/6 w-3/6 m-auto' alt='' />
+        {registerSuccessful && (
+          <SuccessAlert text='El registro se ha completado. Por favor, verifica tu correo electronico' />
+        )}
+        <img
+          src={logo}
+          className='h-1/3 w-1/3 m-auto mb-5 max-md:h-1/2 max-md:w-1/2'
+          alt=''
+        />
         <h1 className='text-2xl text-slate-700 dark:text-slate-400 text-center pb-3'>
           Registrarse
         </h1>
@@ -145,7 +160,7 @@ export function RegisterPage() {
           <div className='flex'>
             <TextInput
               id='password'
-              className='w-11/12'
+              className='w-11/12 max-md:w-10/12'
               type={passwordShown ? 'text' : 'password'}
               name='password'
               icon={HiLockClosed}
@@ -153,7 +168,7 @@ export function RegisterPage() {
               required
             />
             <Button
-              className='w-1/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
+              className='w-1/12 max-md:w-2/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
               onClick={togglePassword}
             >
               {passwordShown ? <HiEye /> : <HiEyeOff />}
@@ -165,7 +180,7 @@ export function RegisterPage() {
           <div className='flex'>
             <TextInput
               id='confirm'
-              className='w-11/12'
+              className='w-11/12 max:md-w-10/12'
               type={confirmShown ? 'text' : 'password'}
               name='confirm'
               icon={HiLockClosed}
@@ -173,7 +188,7 @@ export function RegisterPage() {
               required
             />
             <Button
-              className='w-1/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
+              className='w-1/12 max-md:w-2/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
               onClick={toggleConfirm}
             >
               {confirmShown ? <HiEye /> : <HiEyeOff />}
@@ -182,7 +197,7 @@ export function RegisterPage() {
         </div>
         <br />
 
-        <div className='flex justify-between'>
+        <div className='flex justify-between max-md:flex-col gap-3 mt-4'>
           <Button color='light' onClick={handleGoToLogin}>
             Login
           </Button>
