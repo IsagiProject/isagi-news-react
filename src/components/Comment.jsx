@@ -1,9 +1,13 @@
+import { MdExpandLess, MdExpandMore } from 'react-icons/md'
+import { useAppSelector } from '../hooks/store.js'
 import { CommentInput } from './CommentInput'
 import { CommentsList } from './CommentsList'
 import { useState } from 'react'
 
 export function Comment({ comment, updateComments }) {
   const [display, setDisplay] = useState(false)
+  const token = useAppSelector((state) => state.token)
+
   const handleClick = () => {
     setDisplay(!display)
   }
@@ -18,40 +22,44 @@ export function Comment({ comment, updateComments }) {
   }
   return (
     <div className='my-2'>
-      <h4 className='font-bold text-lg'>{comment.username}</h4>
-      <p className='text-sm break-words'>{comment.text}</p>
-      <button onClick={handleResponseClick}>Responder</button>
+      <h4 className='font-bold text-sm'>{comment.username}</h4>
+      <p className='text-base break-words'>{comment.text}</p>
+      <div className='flex items-center'>
+        {token && (
+          <button onClick={handleResponseClick} className='text-sm mr-6'>
+            Responder
+          </button>
+        )}
+        {comment.child_comments.length !== 0 ? (
+          <button className='text-sm' onClick={handleClick}>
+            {display ? (
+              <div className='flex items-center'>
+                <MdExpandLess />
+                <span>Ocultar respuestas</span>
+              </div>
+            ) : (
+              <div className='flex items-center'>
+                <MdExpandMore />
+                <span>Ver Respuestas</span>
+              </div>
+            )}
+          </button>
+        ) : null}
+      </div>
       <CommentInput
         addResponse={addResponse}
         id={comment.sale_id}
         parentId={comment.comment_id}
         visible={inputVisible}
       />
-      {comment.child_comments.length !== 0 ? (
-        <div>
-          <button onClick={handleClick}>
-            {display ? (
-              <span>
-                Ocultar respuestas
-                <span className='material-symbols-outlined'>expand_less</span>
-              </span>
-            ) : (
-              <span>
-                Ver Respuestas
-                <span className='material-symbols-outlined'>expand_more</span>
-              </span>
-            )}
-          </button>
-          <div className='ml-6'>
-            <CommentsList
-              updateComments={updateComments}
-              display={display}
-              className='ml-8'
-              comments={comment.child_comments}
-            />
-          </div>
-        </div>
-      ) : null}
+      <div className='ml-6'>
+        <CommentsList
+          updateComments={updateComments}
+          display={display}
+          className='ml-8'
+          comments={comment.child_comments}
+        />
+      </div>
     </div>
   )
 }
