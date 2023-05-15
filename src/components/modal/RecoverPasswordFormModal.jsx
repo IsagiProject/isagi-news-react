@@ -24,7 +24,7 @@ export default function FormModal({ show, onClose }) {
       return
     }
     const isSuccessful = await fetch(
-      'https://isagiapi.galder315.ga/auth/request-recover',
+      `${import.meta.env.VITE_API_URL}/auth/request-recover`,
       {
         method: 'POST',
         headers: {
