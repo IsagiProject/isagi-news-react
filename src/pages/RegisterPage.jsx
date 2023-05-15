@@ -191,9 +191,7 @@ export function RegisterPage() {
             type='submit'
             className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-800 transition duration-200 text-gray-300'
           >
-            <a className='block w-24 h-12 pt-3 text-center ' routerLink='/'>
-              Registrarte
-            </a>
+            <a className='block w-24 h-12 pt-3 text-center '>Registrarte</a>
           </button>
         </div>
       </form>
