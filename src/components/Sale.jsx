@@ -12,10 +12,10 @@ export function Sale({ sale }) {
         className='w-3/12 max-md:w-full relative'
         onClick={() => {
           setLikeVisible(true)
+          setLike(!like)
           setTimeout(() => {
             setLikeVisible(false)
           }, 1000)
-          setLike(!like)
         }}
       >
         <img

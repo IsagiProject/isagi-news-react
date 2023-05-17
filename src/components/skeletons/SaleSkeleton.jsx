@@ -10,29 +10,29 @@ export default function SaleSkeleton() {
       <div className='flex flex-col w-9/12'>
         <div className='flex flex-row justify-between'>
           <h1 className='text-2xl text-white text-center ml-6 inline font-bold'>
-            <p />
+            <span />
           </h1>
           <h1 className='text-lg text-slate-800 dark:text-slate-300 text-center inline'>
-            <p />
+            <span />
           </h1>
         </div>
         <div>
           <p className='text-sm text-slate-800 dark:text-slate-300 text-left ml-6 my-6'>
-            <p />
+            <span />
           </p>
         </div>
         <div className='flex flex-row justify-between'>
           <div>
             <p className='text-sm  text-slate-800 dark:text-slate-300 text-left ml-6 mt-8'>
-              <p />
+              <span />
             </p>
           </div>
           <div className='flex flex-row justify-between'>
             <p className='text-xl text-slate-800 dark:text-slate-300 text-left ml-6 mt-8 font-bold'>
-              <p />
+              <span />
             </p>
             <p className='text-lg text-slate-800 dark:text-slate-300 text-left ml-2 mt-8 line-through'>
-              <p />
+              <span />
             </p>
           </div>
         </div>
