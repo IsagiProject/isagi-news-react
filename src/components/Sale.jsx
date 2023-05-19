@@ -1,23 +1,36 @@
 import { Link } from 'react-router-dom'
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi'
 import { useState } from 'react'
+import { useAppSelector } from '../hooks/store.js'
+import { likeSale } from '../services/sales.js'
 
 export function Sale({ sale }) {
   const [likeVisible, setLikeVisible] = useState(false)
-  const [like, setLike] = useState(false)
+  const [like, setLike] = useState(Boolean(sale.user_liked))
+  const token = useAppSelector((state) => state.token)
+  const [likeCount, setLikeCount] = useState(sale.likes)
+
+  const handleLike = async () => {
+    if (!token) return
+    setLikeVisible(true)
+    setLike(!like)
+    setLikeCount((prevCount) => (like ? prevCount - 1 : prevCount + 1))
+    const likeChangedSuccessfully = await likeSale(
+      { saleId: sale.sale_id, token },
+      !like
+    )
+    if (!likeChangedSuccessfully) {
+      setLike((prevLike) => !prevLike)
+      setLikeCount((prevCount) => (like ? prevCount + 1 : prevCount - 1))
+    }
+    setTimeout(() => {
+      setLikeVisible(false)
+    }, 1000)
+  }
 
   return (
     <div className='max-md:mx-0 max-md:flex-col bg-slate-300 dark:bg-slate-700 p-8 mx-40 my-8 justify-start rounded-xl flex object-cover'>
-      <div
-        className='w-3/12 max-md:w-full relative'
-        onClick={() => {
-          setLikeVisible(true)
-          setLike(!like)
-          setTimeout(() => {
-            setLikeVisible(false)
-          }, 1000)
-        }}
-      >
+      <div className='w-3/12 max-md:w-full relative' onClick={handleLike}>
         <img
           src={sale.image}
           className='h-44 max-md:mx-auto w-auto justify-start'
@@ -31,7 +44,7 @@ export function Sale({ sale }) {
               ) : (
                 <HiOutlineHeart className='h-3/5 text-7xl' />
               )}
-              <span className='text-2xl font-bold'>10K</span>
+              <span className='text-2xl font-bold'>{likeCount}</span>
             </div>
           </div>
         )}
