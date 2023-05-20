@@ -40,7 +40,7 @@ export function Menu() {
         {token ? (
           <NavbarItem
             to=''
-            text={`Cerrar sesion ${email}`}
+            text={`Cerrar sesion ${username}`}
             onClick={handleLogout}
           />
         ) : (

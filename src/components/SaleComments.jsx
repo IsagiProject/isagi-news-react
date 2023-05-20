@@ -30,7 +30,7 @@ export function SaleComments() {
   }
 
   return (
-    <div className='bg-slate-300 dark:bg-slate-700 p-8 mx-40 my-12 min-h-[5rem] justify-start rounded-xl flex object-cover text-slate-800 dark:text-slate-300 text-xl flex-col'>
+    <div className='max-md:w-full max-md:mx-0 bg-slate-300 dark:bg-slate-700 p-8 mx-40 my-12 min-h-[5rem] justify-start rounded-xl flex object-cover text-slate-800 dark:text-slate-300 text-xl flex-col'>
       <div className='flex justify-between align-middle pb-6'>
         <h2 className='font-bold'>Comentarios:</h2>
         <div className='flex items-center'>

@@ -1,5 +1,5 @@
-export const getSales = async () => {
-  return fetch(`${import.meta.env.VITE_API_URL}/sales`)
+export const getSales = async (order = '') => {
+  return fetch(`${import.meta.env.VITE_API_URL}/sales?order=${order}`)
     .then((res) => res.json())
     .then(({ data }) => data)
 }
@@ -34,6 +34,20 @@ export const sendSale = async ({ token, sale }) => {
       Authorization: `Bearer ${token}`
     },
     body: JSON.stringify(sale)
+  })
+    .then((res) => res.json())
+    .then(({ data }) => data)
+}
+
+export const uploadSaleImage = async ({ token, image }) => {
+  const formData = new FormData()
+  formData.append('image', image)
+  return fetch(`${import.meta.env.VITE_API_URL}/media/images`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    body: formData
   })
     .then((res) => res.json())
     .then(({ data }) => data)

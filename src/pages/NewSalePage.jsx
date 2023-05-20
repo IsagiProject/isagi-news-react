@@ -7,15 +7,16 @@ import {
   Button
 } from 'flowbite-react'
 import { useEffect, useRef, useState } from 'react'
-import { sendSale } from '../services/sales'
+import { sendSale, uploadSaleImage } from '../services/sales'
 import { useAppSelector } from '../hooks/store'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export default function NewSalePage() {
   const textRef = useRef()
   const [textAreaSize, setTextAreaSize] = useState(0)
   const [showOtherStore, setShowOtherStore] = useState(false)
   const token = useAppSelector((state) => state.token)
+  const navigate = useNavigate()
 
   useEffect(() => {
     setTextAreaSize(textRef.current.scrollHeight)
@@ -35,10 +36,9 @@ export default function NewSalePage() {
       tx.style.height = tx.scrollHeight + 'px'
     }
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
-    const image = formData.get('image')
     const title = formData.get('title')
     const link = formData.get('link')
     const description = formData.get('description')
@@ -48,10 +48,17 @@ export default function NewSalePage() {
         : formData.get('shops')
     const oldPrice = formData.get('old_price')
     const newPrice = formData.get('new_price')
+
+    const { images } = await uploadSaleImage({
+      token,
+      image: formData.get('image')
+    })
+    const image = images[0]
+
     sendSale({
       token,
       sale: {
-        image: '',
+        image,
         title,
         description,
         link,
@@ -59,19 +66,19 @@ export default function NewSalePage() {
         old_price: oldPrice,
         new_price: newPrice
       }
-    })
-
-    console.log(formData.get('title'))
+    }).then((res) => navigate(`/sales/${res.sale_id}`))
   }
 
   return (
-    <div className='flex flex-col gap-4 bg-slate-300 dark:bg-slate-700 p-8 mx-40 my-8 justify-start rounded-xl object-cover'>
+    <div className='max-md:w-full max-md:mx-0 flex flex-col gap-4 bg-slate-300 dark:bg-slate-700 p-8 mx-40 my-8 justify-start rounded-xl object-cover'>
       {!token && <Navigate to='/' />}
+      <h2 className='text-2xl font-bold mx-auto'>Nueva Oferta</h2>
       <form onSubmit={handleSubmit}>
         <div className='mb-2 block'>
           <Label htmlFor='small' value='Foto' />
         </div>
         <FileInput
+          required
           name='image'
           type='file'
           sizing='sm'
@@ -81,11 +88,18 @@ export default function NewSalePage() {
         <div className='mb-2 block'>
           <Label htmlFor='small' value='Titulo de la oferta' />
         </div>
-        <TextInput name='title' type='text' sizing='sm' className='mb-4' />
+        <TextInput
+          required
+          name='title'
+          type='text'
+          sizing='sm'
+          className='mb-4'
+        />
         <div className='mb-2 block'>
           <Label htmlFor='small' value='Descripción' />
         </div>
         <Textarea
+          required
           name='description'
           ref={textRef}
           type='text'
@@ -117,18 +131,24 @@ export default function NewSalePage() {
         <div className='mb-2 block'>
           <Label htmlFor='small' value='Enlace' />
         </div>
-        <TextInput name='link' type='text' className='mb-4' sizing='sm' />
+        <TextInput
+          required
+          name='link'
+          type='text'
+          className='mb-4'
+          sizing='sm'
+        />
         <div className='flex justify-between'>
           <div className='mb-2 block'>
             <Label htmlFor='small' value='Precio Antiguo' />
           </div>
-          <TextInput name='old_price' type='text' sizing='sm' />
+          <TextInput required name='old_price' type='number' sizing='sm' />
           <div className='mb-2 block'>
             <Label htmlFor='small' value='Precio nuevo' />
           </div>
-          <TextInput name='new_price' type='text' sizing='sm' />
+          <TextInput required name='new_price' type='number' sizing='sm' />
         </div>
-        <Button type='submit' color='dark'>
+        <Button type='submit' color='dark' className='ml-auto mt-4'>
           Subir Oferta
         </Button>
       </form>
