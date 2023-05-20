@@ -3,6 +3,7 @@ import logo from '../assets/logo.png'
 import { useState } from 'react'
 import { useAuthActions } from '../hooks/useAuthActions.js'
 import Popup from '../components/modal/Popup.jsx'
+import RecoverPasswordFormModal from '../components/modal/RecoverPasswordFormModal.jsx'
 import { Button, Label, TextInput } from 'flowbite-react'
 import { HiLockClosed, HiMail, HiEye, HiEyeOff } from 'react-icons/hi'
 import { useAppSelector } from '../hooks/store.js'
@@ -11,6 +12,8 @@ export function LoginPage() {
   const [loginSuccessful, setLoginSuccessful] = useState(false)
   const { addToken } = useAuthActions()
   const [showPopup, setShowPopup] = useState(false)
+  const [showRecoverPasswordPopup, setShowRecoverPasswordPopup] =
+    useState(false)
   const navigate = useNavigate()
   const token = useAppSelector((state) => state.token)
 
@@ -50,6 +53,14 @@ export function LoginPage() {
     setShowPopup(false)
   }
 
+  const handleRecoverPassword = () => {
+    setShowRecoverPasswordPopup(true)
+  }
+
+  const handleRecoverPasswordModalClick = () => {
+    setShowRecoverPasswordPopup(false)
+  }
+
   const handleGoToRegister = () => {
     navigate('/register')
   }
@@ -58,7 +69,7 @@ export function LoginPage() {
   const togglePassword = () => {
     setPasswordShown(!passwordShown)
   }
-  
+
   return (
     <div className='justify-center '>
       {token && <Navigate to='/' />}
@@ -68,6 +79,10 @@ export function LoginPage() {
         onClose={handleModalClick}
         text='Usuario o contraseña incorrectos'
         buttonText='Aceptar'
+      />
+      <RecoverPasswordFormModal
+        onClose={handleRecoverPasswordModalClick}
+        show={showRecoverPasswordPopup}
       />
       {loginSuccessful && <Navigate to='/' />}
       <form
@@ -98,20 +113,28 @@ export function LoginPage() {
           <div className='my-2 block'>
             <Label htmlFor='password' value='Contraseña' />
           </div>
-          <TextInput
-            id='password'
-            type={passwordShown ? 'text' : 'password'}
-            name='password'
-            icon={HiLockClosed}
-            required
-          />
-          <Button
-            className='w-1/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
-            onClick={togglePassword}
-          >
-            {passwordShown ? <HiEye /> : <HiEyeOff />}
-          </Button>
+          <div className='flex'>
+            <TextInput
+              id='password'
+              className='w-11/12 max:md-w-10/12'
+              type={passwordShown ? 'text' : 'password'}
+              name='password'
+              icon={HiLockClosed}
+              required
+            />
+            <Button
+              className='w-1/12 max-md:w-2/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
+              onClick={togglePassword}
+            >
+              {passwordShown ? <HiEye /> : <HiEyeOff />}
+            </Button>
+          </div>
         </div>
+        <p>
+          <a onClick={handleRecoverPassword} className='cursor-pointer'>
+            He olvidado mi contraseña
+          </a>
+        </p>
         <br />
         <div className='flex justify-between max-md:flex-col gap-3 mt-4'>
           <Button color='light' onClick={handleGoToRegister}>
