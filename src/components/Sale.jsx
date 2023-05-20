@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi'
-import { useState } from 'react'
 import { useAppSelector } from '../hooks/store.js'
 import { likeSale } from '../services/sales.js'
 
@@ -11,7 +10,7 @@ export function Sale({ sale }) {
   const token = useAppSelector((state) => state.token)
   const [likeCount, setLikeCount] = useState(sale.likes)
   const [date, setDate] = useState()
-  
+
   const handleLike = async () => {
     if (!token) return
     setLikeVisible(true)
@@ -30,10 +29,10 @@ export function Sale({ sale }) {
     }, 1000)
   }
   useEffect(() => {
-   const date = new Date(sale.created_at.replace('Z', ''))
+    const date = new Date(sale.created_at.replace('Z', ''))
     setDate(date.toLocaleDateString())
   }, [])
-  
+
   return (
     <div className='max-lg:mx-30 max-lg:mx-0 max-lg:flex-col bg-slate-300 dark:bg-slate-700 p-8 mx-40 my-8 justify-start rounded-xl flex object-cover'>
       <div className='w-3/12 max-lg:w-full relative' onClick={handleLike}>

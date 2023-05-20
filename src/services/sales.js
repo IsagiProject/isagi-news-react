@@ -68,7 +68,11 @@ export const getLikedSales = async ({ token }) => {
     headers: {
       Authorization: `Bearer ${token}`
     }
-    
+  })
+    .then((res) => res.json())
+    .then(({ data }) => data)
+}
+
 export const uploadSaleImage = async ({ token, image }) => {
   const formData = new FormData()
   formData.append('image', image)

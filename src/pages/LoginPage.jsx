@@ -131,10 +131,10 @@ export function LoginPage() {
           </div>
         </div>
         <p>
-            <a onClick={handleRecoverPassword} className='cursor-pointer'>
-              He olvidado mi contraseña
-            </a>
-          </p>
+          <a onClick={handleRecoverPassword} className='cursor-pointer'>
+            He olvidado mi contraseña
+          </a>
+        </p>
         <br />
         <div className='flex justify-between max-md:flex-col gap-3 mt-4'>
           <Button color='light' onClick={handleGoToRegister}>
