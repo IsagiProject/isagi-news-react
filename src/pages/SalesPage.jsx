@@ -11,19 +11,32 @@ export function SalesPage() {
   const [data, setData] = useState()
   const token = useAppSelector((state) => state.token)
   const navigate = useNavigate()
+  const [q, setQ] = useState('')
+  const [order, setOrder] = useState('')
   useEffect(() => {
-    getSales({ token }).then((sales) => setData(sales))
+    getSales({ token, q, order }).then((sales) => setData(sales))
   }, [])
   const goNewSale = () => {
     navigate('/sales/new')
   }
+  const handleSearch = (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const q = formData.get('search')
+    setQ(q)
+    getSales({ order, token, q }).then((sales) => setData(sales))
+  }
   const handleSelectChange = (order) => {
-    getSales(order).then((sales) => setData(sales))
+    setOrder(order)
+    getSales({ token, order, q }).then((sales) => setData(sales))
   }
   return (
     <>
       <div className='flex justify-between ml-40 max-lg:ml-0 max-md:flex-col '>
-        <form className='flex w-2/5 max-lg:w-full max-lg:mb-2'>
+        <form
+          onSubmit={handleSearch}
+          className='flex w-2/5 max-lg:w-full max-lg:mb-2'
+        >
           <TextInput
             className='w-4/5 mr-1'
             name='search'
@@ -34,7 +47,7 @@ export function SalesPage() {
             <HiSearch />
           </Button>
         </form>
-        <div className='flex'>
+        <div className='flex max-lg:mr-0 ml-auto mr-40'>
           <Dropdown label='Ordenar Por' color='dark'>
             <Dropdown.Item onClick={() => handleSelectChange('price_asc')}>
               Precio Ascendente
@@ -56,11 +69,7 @@ export function SalesPage() {
             </Dropdown.Item>
           </Dropdown>
           {token && (
-            <Button
-              color='dark'
-              className='max-lg:mr-0 ml-auto mr-40'
-              onClick={goNewSale}
-            >
+            <Button color='dark' onClick={goNewSale}>
               Añadir Oferta
             </Button>
           )}

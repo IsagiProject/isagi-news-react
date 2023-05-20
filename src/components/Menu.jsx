@@ -25,6 +25,10 @@ export function Menu() {
     navigate('/login')
   }
 
+  const handleLiked = () => {
+    navigate('/sales/liked')
+  }
+
   const changeTheme = () => {
     switchDarkMode()
     toggleMode()
@@ -53,7 +57,9 @@ export function Menu() {
                   {email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item>Ofertas favoritas</Dropdown.Item>
+              <Dropdown.Item onClick={handleLiked}>
+                Ofertas favoritas
+              </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={changeTheme}>Cambiar modo</Dropdown.Item>
 
