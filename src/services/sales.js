@@ -63,3 +63,12 @@ export const likeSale = async ({ token, saleId }, like) => {
     return false
   }
 }
+export const getLikedSales = async ({ token }) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/account/sales/liked`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then((res) => res.json())
+    .then(({ data }) => data)
+}
