@@ -12,7 +12,7 @@ export function SalesPage() {
   const token = useAppSelector((state) => state.token)
   const navigate = useNavigate()
   useEffect(() => {
-    getSales().then((sales) => setData(sales))
+    getSales({ token }).then((sales) => setData(sales))
   }, [])
   const goNewSale = () => {
     navigate('/sales/new')
@@ -75,7 +75,7 @@ export function SalesPage() {
             <SaleSkeleton />
             <SaleSkeleton />
             <SaleSkeleton />
-            <span class='sr-only'>Loading...</span>
+            <span className='sr-only'>Loading...</span>
           </>
         )}
       </div>
