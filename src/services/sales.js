@@ -1,5 +1,5 @@
-export const getSales = async ({ token }) => {
-  return fetch(`${import.meta.env.VITE_API_URL}/sales`, {
+export const getSales = async ({ token }, order = '') => {
+  return fetch(`${import.meta.env.VITE_API_URL}/sales?order=${order}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -68,6 +68,16 @@ export const getLikedSales = async ({ token }) => {
     headers: {
       Authorization: `Bearer ${token}`
     }
+    
+export const uploadSaleImage = async ({ token, image }) => {
+  const formData = new FormData()
+  formData.append('image', image)
+  return fetch(`${import.meta.env.VITE_API_URL}/media/images`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    body: formData
   })
     .then((res) => res.json())
     .then(({ data }) => data)

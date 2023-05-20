@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi'
 import { useState } from 'react'
@@ -9,7 +10,8 @@ export function Sale({ sale }) {
   const [like, setLike] = useState(Boolean(sale.user_liked))
   const token = useAppSelector((state) => state.token)
   const [likeCount, setLikeCount] = useState(sale.likes)
-
+  const [date, setDate] = useState()
+  
   const handleLike = async () => {
     if (!token) return
     setLikeVisible(true)
@@ -27,13 +29,17 @@ export function Sale({ sale }) {
       setLikeVisible(false)
     }, 1000)
   }
-
+  useEffect(() => {
+   const date = new Date(sale.created_at.replace('Z', ''))
+    setDate(date.toLocaleDateString())
+  }, [])
+  
   return (
-    <div className='max-md:mx-0 max-md:flex-col bg-slate-300 dark:bg-slate-700 p-8 mx-40 my-8 justify-start rounded-xl flex object-cover'>
-      <div className='w-3/12 max-md:w-full relative' onClick={handleLike}>
+    <div className='max-lg:mx-30 max-lg:mx-0 max-lg:flex-col bg-slate-300 dark:bg-slate-700 p-8 mx-40 my-8 justify-start rounded-xl flex object-cover'>
+      <div className='w-3/12 max-lg:w-full relative' onClick={handleLike}>
         <img
           src={sale.image}
-          className='h-44 max-md:mx-auto w-auto justify-start'
+          className='h-44 max-lg:mx-auto w-auto justify-start'
           alt=''
         />
         {likeVisible && (
@@ -49,10 +55,12 @@ export function Sale({ sale }) {
           </div>
         )}
       </div>
-      <div className='max-md:w-full flex flex-col w-9/12'>
-        <div className='max-md:flex-col flex flex-row justify-between'>
-          <h1 className='max-md:block max-md:ml-0 text-2xl text-slate-800 dark:text-slate-300 text-center ml-6 inline font-bold'>
-            <Link to={`/sales/${sale.sale_id}`}>{sale.title}</Link>
+      <div className='max-lg:w-full flex flex-col w-9/12'>
+        <div className='max-lg:flex-col flex flex-row justify-between'>
+          <h1 className='max-lg:block max-lg:ml-0 text-2xl text-slate-800 dark:text-slate-300 text-center ml-6 inline font-bold'>
+            <Link to={`/sales/${sale.sale_id}`}>
+              {sale.title} <span className='ml-4 text-sm'>{date}</span>
+            </Link>
           </h1>
           <h1 className='text-lg text-slate-800 dark:text-slate-300 text-center inline'>
             {sale.username}

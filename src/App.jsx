@@ -13,6 +13,7 @@ import { Flowbite } from 'flowbite-react'
 import { useAppSelector } from './hooks/store.js'
 import FaqsPage from './pages/FaqsPage.jsx'
 import MenuBreadcrumb from './components/breadcrumbs/MenuBreadcrumb.jsx'
+import ResetPasswordPage from './pages/ResetPasswordPage.jsx'
 import { isTokenValid } from './services/auth.js'
 import { useAuthActions } from './hooks/useAuthActions.js'
 import NewSalePage from './pages/NewSalePage.jsx'
@@ -52,6 +53,7 @@ export function App() {
             <Route path='/sales/new' element={<NewSalePage />} />
             <Route path='/faq' element={<FaqsPage />} />
             <Route path='/sales/liked' element={<LikedSalesPage />} />
+            <Route path='/reset-password' element={<ResetPasswordPage />} />
           </Routes>
         </div>
         <Footer />
