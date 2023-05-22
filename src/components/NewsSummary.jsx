@@ -23,21 +23,26 @@ export function NewsSummary({ news }) {
                 opacity: 1,
                 zIndex: 2
               }}
-              className='text-4xl max-h-20 text-slate-800 dark:text-slate-300 align-middle font-bold pb-11 pt-5 '
+              className='text-2xl max-h-20 text-slate-800 dark:text-slate-300 align-middle font-bold pb-11 pt-5 '
             >
               {news.title}
             </h1>
           </div>
           <div className='flex'>
-            <p className='min-w-[70%] text-slate-800 dark:text-slate-300 '>
-              {news.text}
+            <p
+              dangerouslySetInnerHTML={{ __html: news.text }}
+              className='min-w-[70%] text-slate-800 dark:text-slate-300 '
+            >
+              {/* {news.text} */}
             </p>
-            <img
-              className='min-h-[30%] min-w-[30%] '
-              src={news.image}
-              alt='news.title'
-              style={{ zIndex: 0, opacity: 1 }}
-            />
+            {news.image && (
+              <img
+                className='min-h-[30%] min-w-[30%] '
+                src={news.image}
+                alt='news.title'
+                style={{ zIndex: 0, opacity: 1 }}
+              />
+            )}
             <br />
           </div>
         </div>

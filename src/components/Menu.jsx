@@ -49,7 +49,7 @@ export function Menu() {
         {token ? (
           <li className=' h-full hover:bg-slate-300 hover:scale-105 transition duration-500 text-slate-800 dark:text-slate-300 dark:hover:bg-slate-600'>
             <button
-              className='block w-24 h-full py-5 text-center '
+              className='block w-24 h-full py-2 text-center '
               onClick={handleLogout}
             >
               Cerrar sesion {username}
