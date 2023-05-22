@@ -53,9 +53,6 @@ export function NewsSummary({ news }) {
           Read More...
         </button>
       </div>
-      <div>
-        <NewsComments />
-      </div>
     </div>
   )
 }
