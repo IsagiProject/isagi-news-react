@@ -18,6 +18,7 @@ import { isTokenValid } from './services/auth.js'
 import { useAuthActions } from './hooks/useAuthActions.js'
 import NewSalePage from './pages/NewSalePage.jsx'
 import LikedSalesPage from './pages/LikedSalesPage.jsx'
+import AdminPage from './pages/AdminPage.jsx'
 
 export function App() {
   const { removeToken } = useAuthActions()
@@ -54,6 +55,7 @@ export function App() {
             <Route path='/faq' element={<FaqsPage />} />
             <Route path='/sales/liked' element={<LikedSalesPage />} />
             <Route path='/reset-password' element={<ResetPasswordPage />} />
+            <Route path='/admin' element={<AdminPage />} />
           </Routes>
         </div>
         <Footer />

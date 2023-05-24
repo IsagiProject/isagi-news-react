@@ -17,8 +17,8 @@ export function Menu() {
   const navigate = useNavigate()
 
   const handleLogout = () => {
-    console.log('logout')
     removeToken()
+    navigate('/')
   }
 
   const handleLogin = () => {
@@ -27,6 +27,10 @@ export function Menu() {
 
   const handleLiked = () => {
     navigate('/sales/liked')
+  }
+
+  const handleAdmin = () => {
+    navigate('/admin')
   }
 
   const changeTheme = () => {
@@ -59,6 +63,9 @@ export function Menu() {
               </Dropdown.Header>
               <Dropdown.Item onClick={handleLiked}>
                 Ofertas favoritas
+              </Dropdown.Item>
+              <Dropdown.Item onClick={handleAdmin}>
+                Zona Administrador
               </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={changeTheme}>Cambiar modo</Dropdown.Item>
