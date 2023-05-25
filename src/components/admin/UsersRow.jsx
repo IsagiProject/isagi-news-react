@@ -93,7 +93,7 @@ export default function UsersRow({ item, handleReset }) {
         <Checkbox
           checked={admin}
           readOnly={!edit}
-          onClick={() => edit && setAdmin(!admin)}
+          onClick={() => edit && setAdmin((a) => (a === 0 ? 1 : 0))}
         />
       </Table.Cell>
       <Table.Cell>

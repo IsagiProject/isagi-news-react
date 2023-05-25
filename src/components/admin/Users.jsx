@@ -11,7 +11,7 @@ export default function Users() {
   const [showReset, setShowReset] = useState(false)
   const [userId, setUserId] = useState()
   useEffect(() => {
-    getUsers({ token }).then((sales) => setData(sales))
+    getUsers({ token }).then((users) => setData(users))
   }, [])
   const handleReset = (userId) => {
     setUserId(userId)

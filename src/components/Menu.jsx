@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 export function Menu() {
   const token = useAppSelector((state) => state.token)
   const { removeToken } = useAuthActions()
-  const { username, email } = useUserData(token)
+  const { username, email, admin } = useUserData(token)
   const { switchDarkMode } = useStyleActions()
   const [, , toggleMode] = useThemeMode()
   const navigate = useNavigate()
@@ -64,9 +64,11 @@ export function Menu() {
               <Dropdown.Item onClick={handleLiked}>
                 Ofertas favoritas
               </Dropdown.Item>
-              <Dropdown.Item onClick={handleAdmin}>
-                Zona Administrador
-              </Dropdown.Item>
+              {admin > 0 && (
+                <Dropdown.Item onClick={handleAdmin}>
+                  Zona Administrador
+                </Dropdown.Item>
+              )}
               <Dropdown.Divider />
               <Dropdown.Item onClick={changeTheme}>Cambiar modo</Dropdown.Item>
 

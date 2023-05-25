@@ -7,7 +7,15 @@ export const getUsers = async ({ token }) => {
     .then((res) => res.json())
     .then(({ data }) => data)
 }
-export const editUsers = async ({ token, id, username, email, blocked, admin }) => {
+export const editUsers = async ({
+  token,
+  id,
+  username,
+  email,
+  blocked,
+  admin
+}) => {
+  console.log('editUsers', token, id, username, email, blocked, admin)
   return fetch(`${import.meta.env.VITE_API_URL}/admin/users/${id}`, {
     method: 'PUT',
     headers: {
@@ -25,6 +33,30 @@ export const deleteUser = async ({ token, id }) => {
     headers: {
       Authorization: `Bearer ${token}`
     }
+  })
+    .then((res) => res.json())
+    .then(({ data }) => data)
+}
+export const editFaq = async ({ token, id, question, answer }) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/admin/faq/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ question, answer })
+  })
+    .then((res) => res.json())
+    .then(({ data }) => data)
+}
+export const editSale = async ({ token, id, title }) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/admin/sales/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ title })
   })
     .then((res) => res.json())
     .then(({ data }) => data)
