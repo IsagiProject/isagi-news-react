@@ -8,16 +8,34 @@ import { NewsPage } from './pages/NewsPage.jsx'
 import { RegisterPage } from './pages/RegisterPage.jsx'
 import { SalesPage } from './pages/SalesPage.jsx'
 import { SaleDetailPage } from './pages/SaleDetailPage.jsx'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Flowbite } from 'flowbite-react'
 import { useAppSelector } from './hooks/store.js'
 import FaqsPage from './pages/FaqsPage.jsx'
 import MenuBreadcrumb from './components/breadcrumbs/MenuBreadcrumb.jsx'
+import ResetPasswordPage from './pages/ResetPasswordPage.jsx'
+import { isTokenValid } from './services/auth.js'
+import { useAuthActions } from './hooks/useAuthActions.js'
 import NewSalePage from './pages/NewSalePage.jsx'
 import VerifiedEmailPage from './pages/VerifiedEmailPage.jsx'
+import LikedSalesPage from './pages/LikedSalesPage.jsx'
 
 export function App() {
+  const { removeToken } = useAuthActions()
   const dark = useAppSelector((state) => state.style.dark)
+  const token = useAppSelector((state) => state.token)
+  useEffect(() => {
+    console.log(token)
+    const validateToken = async () => {
+      const valid = await isTokenValid(token)
+      if (!valid) {
+        console.log('token invalido')
+        removeToken()
+      }
+    }
+
+    validateToken()
+  }, [])
 
   return (
     <Flowbite theme={{ dark }}>
@@ -36,6 +54,8 @@ export function App() {
             <Route path='/sales/new' element={<NewSalePage />} />
             <Route path='/faq' element={<FaqsPage />} />
             <Route path='/confirm-email' element={<VerifiedEmailPage />} />
+            <Route path='/sales/liked' element={<LikedSalesPage />} />
+            <Route path='/reset-password' element={<ResetPasswordPage />} />
           </Routes>
         </div>
         <Footer />

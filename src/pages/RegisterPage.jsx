@@ -1,17 +1,46 @@
-import { Link, Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useState } from 'react'
+import { HiEye, HiEyeOff, HiLockClosed, HiMail, HiUser } from 'react-icons/hi'
+import { Button, Label, TextInput } from 'flowbite-react'
 import { useAppSelector } from '../hooks/store.js'
+import Popup from '../components/modal/Popup.jsx'
+import SuccessAlert from '../components/alerts/SuccessAlert.jsx'
+
 export function RegisterPage() {
   const [user, setUser] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [registerSuccessful, setRegisterSuccessful] = useState(false)
+  const [popupData, setPopupData] = useState({
+    text: '',
+    buttonText: ''
+  })
+  const navigate = useNavigate()
+  const [showPopup, setShowPopup] = useState(false)
   const token = useAppSelector((state) => state.token)
 
   const handleRegister = (event) => {
     event.preventDefault()
+    if (password.length < 8) {
+      setPopupData({
+        text: 'La contraseña debe tener al menos 8 caracteres',
+        buttonText: 'Aceptar'
+      })
+    }
+
+    if (password !== confirm) {
+      setPopupData({
+        text: 'Las contraseñas no coinciden',
+        buttonText: 'Aceptar'
+      })
+      setShowPopup(true)
+      setPassword('')
+      setConfirm('')
+      return
+    }
+
     fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
       method: 'POST',
       headers: {
@@ -26,119 +55,156 @@ export function RegisterPage() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Aquí puedes manejar la respuesta del servidor
         if (data.status === 200) {
-          console.log(data)
-          window.alert('Registro completado')
           setRegisterSuccessful(true)
-          // Inicio de sesión exitoso
-        } else {
-          // Inicio de sesión fallido
-          window.alert('Registro erroneo')
-          document.getElementById('user').value = ''
-          document.getElementById('email').value = ''
-          document.getElementById('password').value = ''
-          document.getElementById('confirm').value = ''
+          setEmail('')
+          setPassword('')
+          setConfirm('')
+          return
+        }
+
+        if (data.status === 400) {
+          setPopupData({
+            text: 'Los datos no son validos',
+            buttonText: 'Aceptar'
+          })
+          setShowPopup(true)
+          setUser('')
+          setEmail('')
+          setPassword('')
+          setConfirm('')
+          return
+        }
+
+        if (data.status === 422) {
+          setPopupData({
+            text: 'El email ya existe',
+            buttonText: 'Aceptar'
+          })
+          setShowPopup(true)
+          setEmail('')
         }
       })
       .catch((error) => console.error(error))
   }
+
+  const handleGoToLogin = () => {
+    navigate('/login')
+  }
+  const [passwordShown, setPasswordShown] = useState(false)
+  const [confirmShown, setConfirmShown] = useState(false)
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown)
+  }
+  const toggleConfirm = () => {
+    setConfirmShown(!confirmShown)
+  }
+  const handleModalClick = () => {
+    setShowPopup(false)
+  }
   return (
     <div className='justify-center'>
-      {registerSuccessful && <Navigate to='/' />}
       {token && <Navigate to='/' />}
-
+      <Popup
+        show={showPopup}
+        onClick={handleModalClick}
+        onClose={handleModalClick}
+        text={popupData.text}
+        buttonText={popupData.buttonText}
+      />
       <form
         onSubmit={handleRegister}
-        className='bg-slate-400 dark:bg-slate-700 w-6/12 m-auto p-10 my-8 justify-center rounded-lg'
+        className=' bg-slate-400 w-3/4 m-auto dark:bg-slate-700 p-12 my-8 justify-center rounded-lg max-md:w-full'
         action=''
       >
-        <img src={logo} className='h-3/6 w-3/6 m-auto' alt='' />
+        {registerSuccessful && (
+          <SuccessAlert text='El registro se ha completado. Por favor, verifica tu correo electronico' />
+        )}
+        <img
+          src={logo}
+          className='h-1/3 w-1/3 m-auto mb-5 max-md:h-1/2 max-md:w-1/2'
+          alt=''
+        />
         <h1 className='text-2xl text-slate-700 dark:text-slate-400 text-center pb-3'>
           Registrarse
         </h1>
-        <div className='justify-evenly px-5 my-2 '>
-          <br />
 
-          <label
-            htmlFor='user-name'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 text-right'
-          >
-            Usuario
-          </label>
-          <input
+        <div className='justify-items-center text-center'>
+          <div className='mb-2 block'>
+            <Label htmlFor='username' value='Usuario' />
+          </div>
+          <TextInput
+            id='username'
             type='text'
-            name='User'
-            className='my-3 p-1 w-8/12 rounded-lg ml-3'
-            id='user'
+            name='username'
+            icon={HiUser}
             onChange={(event) => setUser(event.target.value)}
+            required
           />
-          <br />
-          <label
-            htmlFor='Email'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2 text-right'
-          >
-            Email
-          </label>
-          <input
-            type='email'
-            name='Email'
-            className='my-3 p-1 w-8/12 rounded-lg ml-5'
-            placeholder='user@gmail.com'
+          <div className='mb-2 block'>
+            <Label htmlFor='email' value='Email' />
+          </div>
+          <TextInput
             id='email'
+            type='email'
+            name='email'
+            icon={HiMail}
+            placeholder='ejemplo@email.com'
             onChange={(event) => setEmail(event.target.value)}
+            value={email}
+            required
           />
-          <br />
-          <label
-            htmlFor='Password'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2'
-          >
-            Clave
-          </label>
-          <input
-            type='password'
-            name='Password'
-            className='mx-5 my-3 w-8/12  p-1 rounded-lg'
-            id='password'
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <br />
-          <label
-            htmlFor='confirm'
-            className='text-slate-700 dark:text-slate-400 text-xl my-1 ml-2'
-          >
-            Confirmar Clave
-          </label>
-          <br />
-          <input
-            type='password'
-            name='Confirm'
-            className='ml-20 my-3 w-8/12  p-1 rounded-lg'
-            id='confirm'
-            onChange={(event) => setConfirm(event.target.value)}
-          />
+          <div className='my-2 block'>
+            <Label htmlFor='password' value='Contraseña' />
+          </div>
+          <div className='flex'>
+            <TextInput
+              id='password'
+              className='w-11/12 max-md:w-10/12'
+              type={passwordShown ? 'text' : 'password'}
+              name='password'
+              icon={HiLockClosed}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+            <Button
+              className='w-1/12 max-md:w-2/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
+              onClick={togglePassword}
+            >
+              {passwordShown ? <HiEye /> : <HiEyeOff />}
+            </Button>
+          </div>
+          <div className='my-2 block'>
+            <Label htmlFor='password' value='Repetir contraseña' />
+          </div>
+          <div className='flex'>
+            <TextInput
+              id='confirm'
+              className='w-11/12 max:md-w-10/12'
+              type={confirmShown ? 'text' : 'password'}
+              name='confirm'
+              icon={HiLockClosed}
+              onChange={(event) => setConfirm(event.target.value)}
+              required
+            />
+            <Button
+              className='w-1/12 max-md:w-2/12 mx-1 my-auto bg-gray-500 hover:bg-gray-800 dark:hover:bg-gray-800  transition duration-200 dark:bg-gray-500'
+              onClick={toggleConfirm}
+            >
+              {confirmShown ? <HiEye /> : <HiEyeOff />}
+            </Button>
+          </div>
         </div>
-
         <br />
 
-        <div className='flex justify-between'>
-          <button
-            type='button'
-            className='bg-gray-500 px-4 rounded-md hover:bg-slate-800 transition duration-200 text-gray-300'
-          >
-            <Link className='block w-24 h-12 pt-3 text-center ' to='/login'>
-              Atrás
-            </Link>
-          </button>
+        <div className='flex justify-between max-md:flex-col gap-3 mt-4'>
+          <Button color='light' onClick={handleGoToLogin}>
+            Login
+          </Button>
 
-          <button
-            type='submit'
-            className='bg-gray-500 py-2 px-4 rounded-md hover:bg-slate-800 transition duration-200 text-gray-300'
-          >
-            <a className='block w-24 h-12 pt-3 text-center ' routerLink='/'>
-              Registrarte
-            </a>
-          </button>
+          <Button type='submit' color='dark'>
+            Registrarse
+          </Button>
         </div>
       </form>
     </div>

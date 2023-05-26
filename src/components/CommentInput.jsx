@@ -96,7 +96,7 @@ export function CommentInput({
         className='bg-transparent border-solid border-x-0 border-t-0 p-0 border-white border-b-2 outline-none resize-none focus:border-white focus:ring-0 overflow-hidden h-0 text-sm w-11/12'
       />
       <div className='relative inline'>
-        <button id='botonemoji' className='mx-3' onClick={handleEmojiClick}>
+        <button id='botonemoji' className='max-md:hidden mx-3' onClick={handleEmojiClick}>
           <MdOutlineAddReaction />
         </button>
 
@@ -108,7 +108,7 @@ export function CommentInput({
         />
       </div>
 
-      <button onClick={handleSubmitComment}>
+      <button onClick={handleSubmitComment} className='mx-2'>
         <MdSend />
       </button>
     </div>
