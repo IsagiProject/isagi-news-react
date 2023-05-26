@@ -14,6 +14,7 @@ import { useAppSelector } from './hooks/store.js'
 import FaqsPage from './pages/FaqsPage.jsx'
 import MenuBreadcrumb from './components/breadcrumbs/MenuBreadcrumb.jsx'
 import NewSalePage from './pages/NewSalePage.jsx'
+import VerifiedEmailPage from './pages/VerifiedEmailPage.jsx'
 
 export function App() {
   const dark = useAppSelector((state) => state.style.dark)
@@ -34,6 +35,7 @@ export function App() {
             <Route path='/sales/:id' element={<SaleDetailPage />} />
             <Route path='/sales/new' element={<NewSalePage />} />
             <Route path='/faq' element={<FaqsPage />} />
+            <Route path='/confirm-email' element={<VerifiedEmailPage />} />
           </Routes>
         </div>
         <Footer />
