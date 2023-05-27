@@ -19,6 +19,7 @@ import { useAuthActions } from './hooks/useAuthActions.js'
 import NewSalePage from './pages/NewSalePage.jsx'
 import VerifiedEmailPage from './pages/VerifiedEmailPage.jsx'
 import LikedSalesPage from './pages/LikedSalesPage.jsx'
+import AdminPage from './pages/AdminPage.jsx'
 
 export function App() {
   const { removeToken } = useAuthActions()
@@ -56,6 +57,7 @@ export function App() {
             <Route path='/confirm-email' element={<VerifiedEmailPage />} />
             <Route path='/sales/liked' element={<LikedSalesPage />} />
             <Route path='/reset-password' element={<ResetPasswordPage />} />
+            <Route path='/admin' element={<AdminPage />} />
           </Routes>
         </div>
         <Footer />

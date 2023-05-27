@@ -12,6 +12,7 @@ export function LoginPage() {
   const [loginSuccessful, setLoginSuccessful] = useState(false)
   const { addToken } = useAuthActions()
   const [showPopup, setShowPopup] = useState(false)
+  const [popupText, setPopupText] = useState('')
   const [showRecoverPasswordPopup, setShowRecoverPasswordPopup] =
     useState(false)
   const navigate = useNavigate()
@@ -40,8 +41,13 @@ export function LoginPage() {
           setLoginSuccessful(true)
 
           // Inicio de sesión exitoso
+        } else if (data.status === 401) {
+          form.reset()
+          setPopupText('Verifica tu correo electrónico para activar tu cuenta')
+          setShowPopup(true)
         } else {
           form.reset()
+          setPopupText('Usuario o contraseña incorrectos')
           setShowPopup(true)
           // Inicio de sesión fallido
           // window.alert('Usuario o contraseña incorrectos')
@@ -77,7 +83,7 @@ export function LoginPage() {
         show={showPopup}
         onClick={handleModalClick}
         onClose={handleModalClick}
-        text='Usuario o contraseña incorrectos'
+        text={popupText}
         buttonText='Aceptar'
       />
       <RecoverPasswordFormModal
