@@ -1,5 +1,9 @@
-export const getSales = async () => {
-  return fetch(`${import.meta.env.VITE_API_URL}/sales`)
+export const getSales = async ({ token, order = '', q }) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/sales?order=${order}&q=${q}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
     .then((res) => res.json())
     .then(({ data }) => data)
 }
@@ -34,6 +38,50 @@ export const sendSale = async ({ token, sale }) => {
       Authorization: `Bearer ${token}`
     },
     body: JSON.stringify(sale)
+  })
+    .then((res) => res.json())
+    .then(({ data }) => data)
+}
+
+export const likeSale = async ({ token, saleId }, like) => {
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/account/sales/liked`,
+      {
+        method: like ? 'POST' : 'DELETE',
+        headers: {
+          'content-type': 'application/json; charset=utf-8',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ saleId })
+      }
+    )
+    const json = await res.json()
+    const status = await json.status
+    return status >= 200 && status < 300
+  } catch (error) {
+    return false
+  }
+}
+export const getLikedSales = async ({ token }) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/account/sales/liked`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then((res) => res.json())
+    .then(({ data }) => data)
+}
+
+export const uploadSaleImage = async ({ token, image }) => {
+  const formData = new FormData()
+  formData.append('image', image)
+  return fetch(`${import.meta.env.VITE_API_URL}/media/images`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    body: formData
   })
     .then((res) => res.json())
     .then(({ data }) => data)
