@@ -61,3 +61,30 @@ export const editSale = async ({ token, id, title }) => {
     .then((res) => res.json())
     .then(({ data }) => data)
 }
+export const deleteSale = async ({ token, id }) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/admin/sales/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => res.json())
+}
+export const deleteFaq = async ({ token, id }) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/admin/faq/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => res.json())
+}
+export const deleteNews = async ({ token, id }) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/admin/news/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => res.json())
+}

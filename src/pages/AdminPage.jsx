@@ -2,6 +2,7 @@ import { Tabs } from 'flowbite-react'
 import Users from '../components/admin/Users'
 import Sales from '../components/admin/Sales'
 import Faq from '../components/admin/Faq'
+import News from '../components/admin/News'
 
 export default function AdminPage() {
   return (
@@ -20,7 +21,12 @@ export default function AdminPage() {
             </h2>
             <Sales />
           </Tabs.Item>
-          <Tabs.Item title='Noticias'>Settings content</Tabs.Item>
+          <Tabs.Item title='Noticias'>
+            <h2 className='text-1xl font-bold text-center mb-4'>
+              Añadir / Quitar noticias
+            </h2>
+            <News />
+          </Tabs.Item>
           <Tabs.Item title='FAQ'>
             <h2 className='text-1xl font-bold text-center mb-4'>
               Añadir / Quitar preguntas
