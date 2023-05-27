@@ -1,5 +1,6 @@
 import { Carrousel } from '../components/Carrousel.jsx'
 import { OpinionList } from '../components/OpinionList.jsx'
+import { Slider } from '../components/Slider.jsx'
 
 export function IndexPage() {
   return (
@@ -9,7 +10,7 @@ export function IndexPage() {
         <OpinionList className='w-3/12' />
       </div>
       <div className='h-60 py-10'>
-        <p>Aqui van las noticias </p>
+        <Slider className='h-60 py-10' />
       </div>
       <div />
     </div>
