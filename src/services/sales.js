@@ -1,4 +1,4 @@
-export const getSales = async ({ token, order = '', q }) => {
+export const getSales = async ({ token, order = '', q = '' }) => {
   return fetch(`${import.meta.env.VITE_API_URL}/sales?order=${order}&q=${q}`, {
     headers: {
       Authorization: `Bearer ${token}`

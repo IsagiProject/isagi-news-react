@@ -1,17 +1,15 @@
 export function Footer() {
   return (
-    <footer className='min-h-[50px] h-auto text-xs bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-300 w-full mt-8'>
+    <footer className='min-h-[50px] h-auto text-xs bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-300 w-full mt-8 f'>
       <b>
         <h2 className='text-center'>Sobre nosotros</h2>
       </b>
       <p />
       <div className='flex-auto text-justify w-2/6 m-auto font'>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis semper
-        posuere mollis. Vivamus mattis non ipsum eu maximus. Quisque fermentum,
-        mauris vitae fringilla laoreet, massa orci dapibus libero, nec interdum
-        eros justo ornare tortor. Aliquam eget risus eget lectus fringilla
-        accumsan quis ac ante. Nullam aliquet turpis vel vehicula elementum.
-        Mauris non est a quam commodo viverra. Donec non scelerisque justo.
+        Somos una empresa comprometida con nuestros clientes, ofreciendo
+        soluciones innovadoras y de calidad. Nuestro objetivo es brindar un
+        servicio excepcional y satisfacer las necesidades de nuestros clientes.
+        ¡Gracias por confiar en nosotros!
       </div>
       <p />
       <div className=' '>

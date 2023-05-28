@@ -46,10 +46,25 @@ export default function MenuBreadcrumb() {
       )}
       {matchPath(
         {
-          path: '/sales/:id/*'
+          path: '/sales/liked/*'
         },
         location.pathname
-      ) && <BreadcrumbItem icon={HiShoppingBag} text='Oferta' />}
+      ) && (
+        <BreadcrumbItem
+          icon={HiStar}
+          text='Ofertas favoritas'
+          link='/sales/liked'
+        />
+      )}
+      {path.indexOf('liked') === -1 &&
+        matchPath(
+          {
+            path: '/sales/:id',
+            exact: true,
+            strict: true
+          },
+          location.pathname
+        ) && <BreadcrumbItem icon={HiShoppingBag} text='Oferta' />}
 
       {/* FAQ */}
       {matchPath(
