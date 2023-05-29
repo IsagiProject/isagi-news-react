@@ -1,4 +1,4 @@
-import { Button, Label, Spinner, TextInput } from 'flowbite-react'
+import { Button, Label, TextInput } from 'flowbite-react'
 import { useRef, useState } from 'react'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -12,7 +12,6 @@ export default function ResetPasswordPage() {
   const [colorPassword, setColorPassword] = useState(null)
   const [successfulChange, setSuccessfulChange] = useState(null)
   const [alertMessage, setAlertMessage] = useState('')
-  const [inProgress, setInProgress] = useState(false)
   const passwordInputRef = useRef()
   const passwordInputRepeatRef = useRef()
   const navigate = useNavigate()
@@ -25,7 +24,6 @@ export default function ResetPasswordPage() {
       return
     }
 
-    setInProgress(true)
     const formData = new FormData(event.target)
     const email = formData.get('email')
     const token = formData.get('token')
@@ -48,7 +46,6 @@ export default function ResetPasswordPage() {
       setAlertMessage(
         'Este enlace no es valido. Por favor, solicita uno nuevo a traves de la pagina "He olvidado mi contraseña".'
       )
-      setInProgress(false)
     }
   }
 
@@ -124,9 +121,7 @@ export default function ResetPasswordPage() {
           color='dark'
           type='submit'
           className='w-full mt-4'
-          isProcessing={inProgress}
           label='Cambiar contraseña'
-          processingSpinner={<Spinner size='sm' />}
         >
           Cambiar contraseña
         </Button>
