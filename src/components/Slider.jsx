@@ -17,10 +17,12 @@ export function Slider() {
   }, [])
   return (
     <>
+      <h2 className='text-3xl font-bold mx-auto my-8'>Ultimas noticias</h2>
       <div className='flex max-lg:flex-col'>
         {newsList &&
           newsList.map((item) => <NewsCards news={item} key={item.news_id} />)}
       </div>
+      <h2 className='text-3xl font-bold mx-auto my-8'>Ultimas ofertas</h2>
       <div className='flex max-lg:flex-col'>
         {salesList &&
           salesList.map((item) => <SaleCard sale={item} key={item.sale_id} />)}
