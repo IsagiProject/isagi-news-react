@@ -1,25 +1,29 @@
 import { NewsCards } from './NewsCards.jsx'
 import { useEffect, useState } from 'react'
-import { getNewsByCategories, getNewsCategories } from '../services/news.js'
+import { getNewsSummary } from '../services/news.js'
+import { getSalesSummary } from '../services/sales.js'
 
 export function Slider() {
   const [newsList, setNewsList] = useState([])
+  const [salesList, setSalesList] = useState([])
   useEffect(() => {
-    getNewsCategories().then((data) => {
-      const types = data.map((item) => item.name)
-      for (const type of types) {
-        getNewsByCategories(type).then((data) => {
-          setNewsList((prev) => {
-            return [...prev, ...data]
-          })
-        })
-      }
+    getSalesSummary().then((data) => {
+      setSalesList(data)
+    })
+    getNewsSummary().then((data) => {
+      setNewsList(data)
     })
   }, [])
   return (
-    <div className='flex '>
-      {newsList &&
-        newsList.map((item) => <NewsCards news={item} key={item.news_id} />)}
-    </div>
+    <>
+      <div className='flex max-lg:flex-col'>
+        {newsList &&
+          newsList.map((item) => <NewsCards news={item} key={item.news_id} />)}
+      </div>
+      <div className='flex max-lg:flex-col'>
+        {salesList &&
+          salesList.map((item) => <NewsCards news={item} key={item.news_id} />)}
+      </div>
+    </>
   )
 }
