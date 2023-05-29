@@ -2,6 +2,7 @@ import { NewsCards } from './NewsCards.jsx'
 import { useEffect, useState } from 'react'
 import { getNewsSummary } from '../services/news.js'
 import { getSalesSummary } from '../services/sales.js'
+import { SaleCard } from './SaleCard.jsx'
 
 export function Slider() {
   const [newsList, setNewsList] = useState([])
@@ -22,7 +23,7 @@ export function Slider() {
       </div>
       <div className='flex max-lg:flex-col'>
         {salesList &&
-          salesList.map((item) => <NewsCards news={item} key={item.news_id} />)}
+          salesList.map((item) => <SaleCard sale={item} key={item.sale_id} />)}
       </div>
     </>
   )
