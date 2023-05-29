@@ -12,6 +12,7 @@
     "@capacitor/android": "^4.8.0",
     "@capacitor/core": "^4.8.0",
     "@reduxjs/toolkit": "^1.9.3",
+    "@trendyol-js/react-carousel": "^3.0.2",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.4",
     "jwt-decode": "^3.1.2",
