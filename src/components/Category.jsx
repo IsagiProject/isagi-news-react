@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export function Category({ category }) {
   return (
     <li
-      className='h-24 my-4 pb-4 px-8 mx-2  bg-slate-500 min-w-[20%] rounded-md hover:scale-110 transition duration-500 bg'
+      className='h-11/12 w-2/5 my-4 pb-4 px-8 mx-2  bg-slate-500 min-w-[20%] rounded-md hover:scale-110 transition duration-500 bg'
       style={{
         backgroundImage: `url(${category.image})`,
         backgroundPosition: 'center',
