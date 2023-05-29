@@ -108,14 +108,14 @@ export default function UsersRow({ item, handleReset }) {
           onClick={handleEditButton}
           className='font-medium cursor-pointer text-blue-600 hover:underline dark:text-blue-500'
         >
-          {edit ? 'Cancel' : 'Edit'}
+          {edit ? 'Cancelar' : 'Editar'}
         </p>
         {edit && (
           <p
             onClick={handleEdit}
             className='font-medium cursor-pointer text-blue-600 hover:underline dark:text-blue-500'
           >
-            Save
+            Guardar
           </p>
         )}
       </Table.Cell>

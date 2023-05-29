@@ -75,7 +75,7 @@ export default function FaqRow({ item }) {
           onClick={handleEditButton}
           className='font-medium cursor-pointer text-blue-600 hover:underline dark:text-blue-500'
         >
-          {edit ? 'Cancel' : 'Edit'}
+          {edit ? 'Cancelar' : 'Editar'}
         </p>
         {edit && (
           <>
@@ -89,7 +89,7 @@ export default function FaqRow({ item }) {
               onClick={handleDelete}
               className='font-medium cursor-pointer text-blue-600 hover:underline dark:text-blue-500'
             >
-              Delete
+              Eliminar
             </p>
           </>
         )}
