@@ -86,3 +86,8 @@ export const uploadSaleImage = async ({ token, image }) => {
     .then((res) => res.json())
     .then(({ data }) => data)
 }
+export const getSalesSummary = async () => {
+  return fetch(`${import.meta.env.VITE_API_URL}/sales/home/summary`)
+    .then((res) => res.json())
+    .then(({ data }) => data)
+}
