@@ -34,10 +34,10 @@ export function SaleDetail() {
           </div>
           <div className='flex flex-row m-auto'>
             <p className='m-2 mb-4 text-5xl text-slate-800 dark:text-slate-300 text-left font-bold'>
-              {data.old_price} €
+              {data.new_price} €
             </p>
             <p className='m-2 mb-4 text-3xl text-slate-800 dark:text-slate-300 line-through'>
-              {data.new_price} €
+              {data.old_price} €
             </p>
           </div>
           <div className='flex flex-row justify-between items-end'>
