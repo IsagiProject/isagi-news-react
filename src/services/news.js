@@ -13,3 +13,8 @@ export const getNewsSummary = async () => {
     .then((res) => res.json())
     .then(({ data }) => data)
 }
+export const getNews = async () => {
+  return fetch(`${import.meta.env.VITE_API_URL}/news`)
+    .then((res) => res.json())
+    .then(({ data }) => data)
+}
