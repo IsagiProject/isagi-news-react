@@ -34,14 +34,14 @@ export default function NewsRow({ item }) {
           onClick={handleEditButton}
           className='font-medium cursor-pointer text-blue-600 hover:underline dark:text-blue-500'
         >
-          {edit ? 'Cancel' : 'Edit'}
+          {edit ? 'Cancelar' : 'Editar'}
         </p>
         {edit && (
           <p
             onClick={handleDelete}
             className='font-medium cursor-pointer text-blue-600 hover:underline dark:text-blue-500'
           >
-            Delete
+            Eliminar
           </p>
         )}
       </Table.Cell>
