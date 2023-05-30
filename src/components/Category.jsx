@@ -12,7 +12,7 @@ export function Category({ category }) {
       id='categoria'
     >
       <Link
-        className='inline-block w-full h-full pt-3 pb-5 text-gray-300 opacity-10 font-bold text-center text-3xl'
+        className='inline-block w-full h-full pt-3 pb-5 text-gray-300 opacity-0 font-bold text-center text-3xl'
         to={`/news/${category.name}`}
       >
         {category.name}

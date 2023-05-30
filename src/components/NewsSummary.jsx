@@ -23,7 +23,7 @@ export function NewsSummary({ news }) {
                 opacity: 1,
                 zIndex: 2
               }}
-              className='text-2xl max-h-20 text-slate-800 dark:text-slate-300 align-middle font-bold pb-11 pt-5 '
+              className='text-inherit max-h-20 text-slate-800 dark:text-slate-300 align-middle font-bold pb-11 pt-5 '
             >
               {news.title}
             </h1>
